@@ -1,0 +1,27 @@
+2024-12-16 23:24:01 info: Server is running on port 5000
+2024-12-16 23:24:01 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-16 23:56:55 info: User john_doe seeded successfully.
+2024-12-16 23:56:55 info: User jane_smith seeded successfully.
+2024-12-16 23:56:55 info: User alice_wonder seeded successfully.
+2024-12-16 23:56:56 info: User bob_builder seeded successfully.
+2024-12-16 23:56:56 info: User charlie_brown seeded successfully.
+2024-12-17 15:46:23 info: Server is running on port 5000
+2024-12-17 15:46:23 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-17 15:49:47 info: ::1 - - [17/Dec/2024:08:49:47 +0000] "GET /api-docs HTTP/1.1" 301 158 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 15:49:47 info: ::1 - - [17/Dec/2024:08:49:47 +0000] "GET /api-docs/ HTTP/1.1" 200 3106 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 15:49:47 info: ::1 - - [17/Dec/2024:08:49:47 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 20839 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 15:49:47 info: ::1 - - [17/Dec/2024:08:49:47 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 200 152072 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 15:49:47 info: ::1 - - [17/Dec/2024:08:49:47 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 200 230007 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 15:49:47 info: ::1 - - [17/Dec/2024:08:49:47 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 200 1426050 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 15:49:49 info: ::1 - - [17/Dec/2024:08:49:49 +0000] "GET /api-docs/favicon-32x32.png HTTP/1.1" 200 628 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 17:07:15 info: Server is running on port 5000
+2024-12-17 17:07:15 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-17 23:04:39 info: Server is running on port 5000
+2024-12-17 23:04:39 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs HTTP/1.1" 301 158 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/ HTTP/1.1" 200 3106 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 20839 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 200 152072 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 200 230007 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 200 1426050 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-17 23:05:16 info: ::1 - - [17/Dec/2024:16:05:16 +0000] "POST /api/auth/register HTTP/1.1" 400 235 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
