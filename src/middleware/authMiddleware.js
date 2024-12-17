@@ -12,14 +12,14 @@ const authenticate = (req, res, next) => {
     return res.status(401).json({ message: 'Access denied, token missing' });
   }
 
-  const token = authHeader.split(' ')[1]; // Expect token in format "Bearer <token>"
-
+  const token = authHeader.split(' ')[1]; 
   if (!token) {
     logger.warn('Access denied: Token missing');
     return res.status(401).json({ message: 'Access denied, token missing' });
   }
 
   try {
+    // giải mã token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user_id; // Gán user_id cho request
     next();

@@ -18,6 +18,14 @@ const getGroupsByUserId = async (userId) => {
   return result.rows;
 };
 
+const checkUserRoleInGroup = async(userId, groupId) =>{
+  const result = await pool.query(
+    'SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2',
+    [userId, groupId]
+  );
+  return result.rows[0]?.role || null;
+};
+
 const addUserToGroup = async (userId, groupId, role = 'member') => {
   const result = await pool.query(
     'INSERT INTO user_groups (user_id, group_id, role) VALUES ($1, $2, $3) RETURNING *',
@@ -26,4 +34,4 @@ const addUserToGroup = async (userId, groupId, role = 'member') => {
   return result.rows[0];
 };
 
-module.exports = { createGroup, getGroupsByUserId, addUserToGroup };
+module.exports = { createGroup, getGroupsByUserId, addUserToGroup, checkUserRoleInGroup };

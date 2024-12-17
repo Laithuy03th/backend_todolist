@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createNewGroup, getUserGroups, joinGroup } = require('../controllers/groupController');
+const { createNewGroup, getUserGroups, inviteMember } = require('../controllers/groupController');
 const authenticate = require('../middleware/authMiddleware');
 const { check, validationResult } = require('express-validator');
 
@@ -73,11 +73,12 @@ router.post(
  */
 router.get('/', authenticate, getUserGroups);
 
+
 /**
  * @swagger
- * /api/groups/join:
+ * /api/groups/invite:
  *   post:
- *     summary: Join a group
+ *     summary: Admin mời thành viên vào nhóm
  *     tags: [Groups]
  *     security:
  *       - bearerAuth: []
@@ -89,27 +90,26 @@ router.get('/', authenticate, getUserGroups);
  *             type: object
  *             required:
  *               - group_id
- *               - role
+ *               - user_id
  *             properties:
  *               group_id:
  *                 type: integer
- *               role:
- *                 type: string
- *                 enum: [member, admin]
+ *               user_id:
+ *                 type: integer
  *     responses:
  *       201:
- *         description: Joined group successfully
- *       400:
- *         description: Bad request
+ *         description: Mời thành viên thành công
+ *       403:
+ *         description: Bạn không có quyền mời thành viên
  *       500:
- *         description: Server error
+ *         description: Lỗi server
  */
 router.post(
-  '/join',
+  '/invite',
   authenticate,
   [
     check('group_id', 'group_id là bắt buộc').isInt(),
-    check('role', 'Role phải là "member" hoặc "admin"').isIn(['member', 'admin']),
+    check('user_id', 'user_id là bắt buộc').isInt(),
   ],
   (req, res, next) => {
     const errors = validationResult(req);
@@ -118,7 +118,8 @@ router.post(
     }
     next();
   },
-  joinGroup
-);
+  inviteMember
+);  
+
 
 module.exports = router;
