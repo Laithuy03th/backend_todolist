@@ -25,3 +25,13 @@
 2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 200 230007 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 2024-12-17 23:04:52 info: ::1 - - [17/Dec/2024:16:04:52 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 200 1426050 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 2024-12-17 23:05:16 info: ::1 - - [17/Dec/2024:16:05:16 +0000] "POST /api/auth/register HTTP/1.1" 400 235 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-18 23:09:24 info: Server is running on port 5000
+2024-12-18 23:09:24 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-18 23:09:40 info: ::1 - - [18/Dec/2024:16:09:40 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-18 23:09:40 info: ::1 - - [18/Dec/2024:16:09:40 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-18 23:09:40 info: ::1 - - [18/Dec/2024:16:09:40 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 20786 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-18 23:09:40 info: ::1 - - [18/Dec/2024:16:09:40 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-18 23:09:40 info: ::1 - - [18/Dec/2024:16:09:40 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-18 23:30:12 info: ::1 - - [18/Dec/2024:16:30:12 +0000] "POST /api/auth/register HTTP/1.1" 400 235 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 00:06:53 info: ::1 - - [18/Dec/2024:17:06:53 +0000] "GET / HTTP/1.1" 200 29 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 00:06:53 info: ::1 - - [18/Dec/2024:17:06:53 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"

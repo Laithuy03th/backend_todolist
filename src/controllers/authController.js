@@ -22,7 +22,9 @@ const registerUser = async (req, res) => {
     const newUser = await createUser(username, email, hashedPassword, address);
 
     // Tạo token JWT
-    const token = jwt.sign({ user_id: newUser.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ user_id: newUser.user_id, role: 'user' }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     logger.info(`User registered: ${email}`);
 
@@ -60,7 +62,9 @@ const loginUser = async (req, res) => {
     }
 
     // Tạo token JWT
-    const token = jwt.sign({ user_id: user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ user_id: user.user_id, role: user.role }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     logger.info(`User logged in: ${email}`);
 
@@ -81,6 +85,13 @@ const loginUser = async (req, res) => {
 
 // Endpoint để lấy tất cả người dùng (dành cho admin)
 const getAllUsersController = async (req, res) => {
+  const { role } = req.user;
+
+  if (role !== 'admin') {
+    logger.warn(`Unauthorized access to getAllUsers by user ${req.user.user_id}`);
+    return res.status(403).json({ message: 'Bạn không có quyền truy cập' });
+  }
+
   try {
     const users = await getAllUsers();
     res.status(200).json(users);

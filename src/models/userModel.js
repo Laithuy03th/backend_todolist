@@ -15,13 +15,32 @@ const findUserByEmail = async (email) => {
 };
 
 const findUserById = async (id) => {
-  const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [id]);
+  const result = await pool.query(
+    'SELECT user_id, username, email, address, created_at FROM users WHERE user_id = $1 AND is_deleted = false',
+    [id]
+  );
   return result.rows[0];
 };
 
 const getAllUsers = async () => {
-  const result = await pool.query('SELECT * FROM users ORDER BY created_at DESC');
+  const result = await pool.query(
+    'SELECT user_id, username, email, address, created_at FROM users WHERE is_deleted = false ORDER BY created_at DESC'
+  );
   return result.rows;
 };
 
-module.exports = { createUser, findUserByEmail, findUserById, getAllUsers };
+const updateUser = async (id, fields) => {
+  const setString = Object.keys(fields)
+    .map((key, index) => `${key} = $${index + 1}`)
+    .join(', ');
+
+  const values = Object.values(fields);
+  const result = await pool.query(
+    `UPDATE users SET ${setString}, updated_at = CURRENT_TIMESTAMP WHERE user_id = $${values.length + 1} RETURNING user_id, username, email, address, updated_at`,
+    [...values, id]
+  );
+
+  return result.rows[0];
+};
+
+module.exports = { createUser, findUserByEmail, findUserById, getAllUsers, updateUser };

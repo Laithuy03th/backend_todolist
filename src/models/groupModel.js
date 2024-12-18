@@ -34,4 +34,30 @@ const addUserToGroup = async (userId, groupId, role = 'member') => {
   return result.rows[0];
 };
 
-module.exports = { createGroup, getGroupsByUserId, addUserToGroup, checkUserRoleInGroup };
+const removeUserFromGroup = async (userId, groupId) => {
+  const result = await pool.query(
+    'DELETE FROM user_groups WHERE user_id = $1 AND group_id = $2 RETURNING *',
+    [userId, groupId]
+  );
+  return result.rows[0];
+};
+
+
+const updateUserRoleInGroup = async (userId, groupId, newRole) => {
+  const result = await pool.query(
+    'UPDATE user_groups SET role = $1 WHERE user_id = $2 AND group_id = $3 RETURNING *',
+    [newRole, userId, groupId]
+  );
+  return result.rows[0];
+};
+
+
+const deleteGroup = async (groupId) => {
+ 
+  await pool.query('DELETE FROM user_groups WHERE group_id = $1', [groupId]);
+
+  const result = await pool.query('DELETE FROM groups WHERE group_id = $1 RETURNING *', [groupId]);
+  return result.rows[0];
+};
+
+module.exports = { createGroup, getGroupsByUserId, addUserToGroup, checkUserRoleInGroup, removeUserFromGroup, deleteGroup, updateUserRoleInGroup };
