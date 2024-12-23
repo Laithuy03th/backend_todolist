@@ -4,7 +4,7 @@ const { createUser, findUserByEmail, updateUser, findUserById } = require('../mo
 const logger = require('../utils/logger');
 const { validationResult } = require('express-validator');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret_key';
 
 // Đăng ký người dùng mới
 const registerUser = async (req, res) => {
