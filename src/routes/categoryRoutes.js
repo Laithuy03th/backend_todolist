@@ -1,15 +1,34 @@
 const express = require('express');
-const router = express.Router();
-const { createNewCategory, getCategories, assignCategory } = require('../controllers/categoryController');
-const authenticate = require('../middleware/authMiddleware');
 const { check, validationResult } = require('express-validator');
+const router = express.Router();
+const {
+    addCategoryController,
+    getCategoriesController,
+    getTasksByCategoryController,
+    updateCategoryController,
+    deleteCategoryController
+} = require('../controllers/categoryController');
+const authenticate = require('../middleware/authMiddleware');
+const logger = require('../utils/logger');
 
 /**
  * @swagger
  * tags:
  *   name: Categories
- *   description: API for managing categories
+ *   description: API for managing categories and related tasks
  */
+
+/**
+ * Middleware để kiểm tra lỗi từ express-validator
+ */
+const validate = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        logger.warn(`Validation failed: ${JSON.stringify(errors.array())}`);
+        return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+};
 
 /**
  * @swagger
@@ -35,47 +54,75 @@ const { check, validationResult } = require('express-validator');
  *         description: Category created successfully
  *       400:
  *         description: Bad request
- *       500:
- *         description: Server error
  */
 router.post(
-  '/',
-  authenticate,
-  [check('name', 'Tên danh mục là bắt buộc').not().isEmpty()],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  createNewCategory
+    '/',
+    authenticate,
+    [check('name', 'Name is required').not().isEmpty()],
+    validate,
+    addCategoryController
 );
 
 /**
  * @swagger
  * /api/categories:
  *   get:
- *     summary: Get all categories
+ *     summary: Get all categories for the logged-in user
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: List of categories
+ *         description: List of categories retrieved successfully
  *       500:
- *         description: Server error
+ *         description: Internal server error
  */
-router.get('/', authenticate, getCategories);
+router.get('/', authenticate, getCategoriesController);
 
 /**
  * @swagger
- * /api/categories/assign:
- *   post:
- *     summary: Assign a category to a task
+ * /api/categories/{categoryId}/tasks:
+ *   get:
+ *     summary: Get all tasks for a specific category
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: categoryId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the category
+ *     responses:
+ *       200:
+ *         description: List of tasks retrieved successfully
+ *       400:
+ *         description: Bad request
+ */
+router.get(
+    '/:categoryId/tasks',
+    authenticate,
+    [check('categoryId', 'Category ID must be an integer').isInt()],
+    validate,
+    getTasksByCategoryController
+);
+
+/**
+ * @swagger
+ * /api/categories/{categoryId}:
+ *   put:
+ *     summary: Update a category
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: categoryId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the category to update
  *     requestBody:
  *       required: true
  *       content:
@@ -83,36 +130,54 @@ router.get('/', authenticate, getCategories);
  *           schema:
  *             type: object
  *             required:
- *               - task_id
- *               - category_id
+ *               - name
  *             properties:
- *               task_id:
- *                 type: integer
- *               category_id:
- *                 type: integer
+ *               name:
+ *                 type: string
  *     responses:
- *       201:
- *         description: Category assigned to task successfully
+ *       200:
+ *         description: Category updated successfully
  *       400:
  *         description: Bad request
- *       500:
- *         description: Server error
  */
-router.post(
-  '/assign',
-  authenticate,
-  [
-    check('task_id', 'task_id là bắt buộc').isInt(),
-    check('category_id', 'category_id là bắt buộc').isInt(),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  assignCategory
+router.put(
+    '/:categoryId',
+    authenticate,
+    [
+        check('categoryId', 'Category ID must be an integer').isInt(),
+        check('name', 'Name is required').not().isEmpty()
+    ],
+    validate,
+    updateCategoryController
+);
+
+/**
+ * @swagger
+ * /api/categories/{categoryId}:
+ *   delete:
+ *     summary: Delete a category (and its related tasks)
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: categoryId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the category to delete
+ *     responses:
+ *       200:
+ *         description: Category deleted successfully
+ *       400:
+ *         description: Bad request
+ */
+router.delete(
+    '/:categoryId',
+    authenticate,
+    [check('categoryId', 'Category ID must be an integer').isInt()],
+    validate,
+    deleteCategoryController
 );
 
 module.exports = router;

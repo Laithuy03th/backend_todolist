@@ -1,8 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { createNewGroupTask, getAllGroupTasks, modifyGroupTask, removeGroupTask } = require('../controllers/groupTaskController');
+const {
+  createGroupTaskController,
+  updateGroupTaskController,
+  deleteGroupTaskController,
+  getGroupTasksController,
+  updateTaskStatusController
+} = require('../controllers/groupTaskController');
 const authenticate = require('../middleware/authMiddleware');
 const { check, validationResult } = require('express-validator');
+const authorize = require('../middleware/authorize');
+const logger = require('../utils/logger');
 
 /**
  * @swagger
@@ -26,72 +34,50 @@ const { check, validationResult } = require('express-validator');
  *           schema:
  *             type: object
  *             required:
- *               - task_id
- *               - group_id
- *               - assigned_by
+ *               - groupId
+ *               - title
+ *               - description
+ *               - dueDate
+ *               - assignedTo
  *             properties:
- *               task_id:
+ *               groupId:
  *                 type: integer
- *               group_id:
- *                 type: integer
- *               assigned_by:
- *                 type: integer
- *               due_date:
+ *               title:
  *                 type: string
- *                 format: date-time
- *               status:
+ *               description:
  *                 type: string
- *                 enum: [pending, completed]
+ *               dueDate:
+ *                 type: string
+ *                 format: date
+ *               assignedTo:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Group task created successfully
  *       400:
  *         description: Bad request
- *       500:
- *         description: Server error
  */
 router.post(
   '/',
   authenticate,
   [
-    check('task_id', 'task_id là bắt buộc').isInt(),
-    check('group_id', 'group_id là bắt buộc').isInt(),
-    check('assigned_by', 'assigned_by là bắt buộc').isInt(),
-    check('status').optional().isIn(['pending', 'completed']),
-    check('due_date').optional().isISO8601(),
+    check('groupId', 'Group ID is required').isInt(),
+    check('title', 'Title is required').notEmpty(),
+    check('description', 'Description is required').notEmpty(),
+    check('dueDate', 'Due date must be a valid ISO8601 date').optional().isISO8601(),
+    check('assignedTo', 'Assigned To must be a valid integer').isInt()
   ],
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      logger.warn(`Validation error: ${JSON.stringify(errors.array())}`);
       return res.status(400).json({ errors: errors.array() });
     }
     next();
   },
-  createNewGroupTask
+  authorize('admin'), // Ensure only admins can create group tasks
+  createGroupTaskController
 );
-
-/**
- * @swagger
- * /api/group-tasks/{group_id}:
- *   get:
- *     summary: Get all group tasks for a specific group
- *     tags: [Group Tasks]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: group_id
- *         required: true
- *         description: ID of the group
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: List of group tasks
- *       500:
- *         description: Server error
- */
-router.get('/:group_id', authenticate, getAllGroupTasks);
 
 /**
  * @swagger
@@ -104,10 +90,10 @@ router.get('/:group_id', authenticate, getAllGroupTasks);
  *     parameters:
  *       - in: path
  *         name: group_task_id
- *         required: true
- *         description: ID of the group task to update
  *         schema:
  *           type: integer
+ *         required: true
+ *         description: ID of the group task
  *     requestBody:
  *       required: true
  *       content:
@@ -118,34 +104,32 @@ router.get('/:group_id', authenticate, getAllGroupTasks);
  *               status:
  *                 type: string
  *                 enum: [pending, completed]
- *               due_date:
+ *               dueDate:
  *                 type: string
- *                 format: date-time
+ *                 format: date
  *     responses:
  *       200:
- *         description: Group task updated successfully
+ *         description: Task updated successfully
  *       400:
  *         description: Bad request
- *       404:
- *         description: Group task not found
- *       500:
- *         description: Server error
  */
 router.put(
   '/:group_task_id',
   authenticate,
   [
-    check('status').optional().isIn(['pending', 'completed']),
-    check('due_date').optional().isISO8601(),
+    check('status', 'Status must be either pending or completed').optional().isIn(['pending', 'completed']),
+    check('dueDate', 'Due date must be a valid ISO8601 date').optional().isISO8601()
   ],
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      logger.warn(`Validation error: ${JSON.stringify(errors.array())}`);
       return res.status(400).json({ errors: errors.array() });
     }
     next();
   },
-  modifyGroupTask
+  authorize('admin'), // Only admins can update group tasks
+  updateGroupTaskController
 );
 
 /**
@@ -159,18 +143,91 @@ router.put(
  *     parameters:
  *       - in: path
  *         name: group_task_id
- *         required: true
- *         description: ID of the group task to delete
  *         schema:
  *           type: integer
+ *         required: true
+ *         description: ID of the group task
  *     responses:
  *       200:
- *         description: Group task deleted successfully
- *       404:
- *         description: Group task not found
- *       500:
- *         description: Server error
+ *         description: Task deleted successfully
+ *       400:
+ *         description: Bad request
  */
-router.delete('/:group_task_id', authenticate, removeGroupTask);
+router.delete('/:group_task_id', authenticate, authorize('admin'), deleteGroupTaskController);
+
+/**
+ * @swagger
+ * /api/group-tasks:
+ *   get:
+ *     summary: Get all group tasks for a specific group
+ *     tags: [Group Tasks]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: groupId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the group
+ *       - in: query
+ *         name: assignedOnly
+ *         schema:
+ *           type: boolean
+ *         description: Fetch tasks assigned only to the current user
+ *     responses:
+ *       200:
+ *         description: List of group tasks
+ *       400:
+ *         description: Bad request
+ */
+router.get('/', authenticate, getGroupTasksController);
+
+/**
+ * @swagger
+ * /api/group-tasks/{group_task_id}/status:
+ *   patch:
+ *     summary: Update task status
+ *     tags: [Group Tasks]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: group_task_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the group task
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Task status updated successfully
+ *       400:
+ *         description: Bad request
+ */
+router.patch(
+  '/:group_task_id/status',
+  authenticate,
+  [
+    check('status', 'Status must be a boolean').isBoolean()
+  ],
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      logger.warn(`Validation error: ${JSON.stringify(errors.array())}`);
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+  updateTaskStatusController
+);
 
 module.exports = router;

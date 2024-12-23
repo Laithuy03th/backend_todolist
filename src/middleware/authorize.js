@@ -1,35 +1,32 @@
 const pool = require('../config/db');
+const logger = require('../utils/logger');
 
-// Middleware phân quyền theo role
-const authorize = (requiredRoles = []) => {
-  return async (req, res, next) => {
-    const userId = req.user; // Lấy user_id từ token (đã xác thực)
-    const { group_id } = req.body || req.params; // Lấy group_id từ body hoặc params
+const authorize = (roles = []) => {
+    return async (req, res, next) => {
+        try {
+            const groupId = req.params.groupId || req.body.groupId;
 
-    try {
-      // Kiểm tra vai trò (role) của user trong group
-      const result = await pool.query(
-        'SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2',
-        [userId, group_id]
-      );
+            if (!groupId) {
+                return res.status(400).json({ message: 'Group ID is missing' });
+            }
 
-      const userRole = result.rows[0]?.role;
+            const userRoleQuery = await pool.query(
+                'SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND is_deleted = false',
+                [req.user.user_id, groupId]
+            );
 
-      // Nếu không tìm thấy role hoặc không đủ quyền
-      if (!userRole) {
-        return res.status(403).json({ message: 'Bạn không thuộc nhóm này' });
-      }
-      if (!requiredRoles.includes(userRole)) {
-        return res.status(403).json({ message: 'Bạn không có quyền thực hiện chức năng này' });
-      }
-      
+            if (userRoleQuery.rowCount === 0 || !roles.includes(userRoleQuery.rows[0].role)) {
+                logger.warn(`Access denied for user ${req.user.user_id} on group ${groupId}`);
+                return res.status(403).json({ message: 'Access denied' });
+            }
 
-      next(); // Cho phép tiếp tục nếu đúng role
-    } catch (error) {
-      console.error(`Error in authorization middleware: ${error.message}`);
-      res.status(500).json({ message: 'Lỗi phân quyền' });
-    }
-  };
+            logger.info(`User ${req.user.user_id} authorized with role ${userRoleQuery.rows[0].role} for group ${groupId}`);
+            next();
+        } catch (error) {
+            logger.error(`Authorization error: ${error.message}`);
+            res.status(500).json({ message: 'Authorization failed', error: error.message });
+        }
+    };
 };
 
 module.exports = authorize;

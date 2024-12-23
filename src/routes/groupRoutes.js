@@ -1,125 +1,120 @@
 const express = require('express');
-const router = express.Router();
-const { createNewGroup, getUserGroups, inviteMember } = require('../controllers/groupController');
-const authenticate = require('../middleware/authMiddleware');
 const { check, validationResult } = require('express-validator');
+const router = express.Router();
+const {
+    createGroupController,
+    updateGroupController,
+    deleteGroupController,
+    addMemberToGroupController,
+    removeMemberFromGroupController
+} = require('../controllers/groupController');
+const authenticate = require('../middleware/authMiddleware');
+const authorize = require('../middleware/authorize');
+const logger = require('../utils/logger');
 
 /**
- * @swagger
- * tags:
- *   name: Groups
- *   description: API for managing groups
- */
-
-/**
- * @swagger
- * /api/groups:
- *   post:
- *     summary: Create a new group
- *     tags: [Groups]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *     responses:
- *       201:
- *         description: Group created successfully
- *       400:
- *         description: Bad request
- *       500:
- *         description: Server error
+ * @route POST /api/groups
+ * @desc Tạo nhóm mới
+ * @access Private
  */
 router.post(
-  '/',
-  authenticate,
-  [
-    check('name', 'Tên nhóm là bắt buộc').not().isEmpty(),
-    // Description is optional
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  createNewGroup
+    '/',
+    authenticate,
+    [
+        check('name', 'Group name is required').notEmpty(),
+        check('description', 'Description must be a string').optional().isString()
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            logger.warn('Validation failed for creating group', { errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+    createGroupController
 );
 
 /**
- * @swagger
- * /api/groups:
- *   get:
- *     summary: Get all groups of the authenticated user
- *     tags: [Groups]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of groups
- *       500:
- *         description: Server error
+ * @route PUT /api/groups/:groupId
+ * @desc Sửa thông tin nhóm
+ * @access Private (Admin của nhóm)
  */
-router.get('/', authenticate, getUserGroups);
-
+router.put(
+    '/:groupId',
+    authenticate,
+    authorize('admin'),
+    [
+        check('name', 'Group name is required').optional().notEmpty(),
+        check('description', 'Description must be a string').optional().isString()
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            logger.warn('Validation failed for updating group', { errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+    updateGroupController
+);
 
 /**
- * @swagger
- * /api/groups/invite:
- *   post:
- *     summary: Admin mời thành viên vào nhóm
- *     tags: [Groups]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - group_id
- *               - user_id
- *             properties:
- *               group_id:
- *                 type: integer
- *               user_id:
- *                 type: integer
- *     responses:
- *       201:
- *         description: Mời thành viên thành công
- *       403:
- *         description: Bạn không có quyền mời thành viên
- *       500:
- *         description: Lỗi server
+ * @route DELETE /api/groups/:groupId
+ * @desc Xóa nhóm (xóa mềm)
+ * @access Private (Admin của nhóm)
+ */
+router.delete(
+    '/:groupId',
+    authenticate,
+    authorize('admin'),
+    deleteGroupController
+);
+
+/**
+ * @route POST /api/groups/:groupId/members
+ * @desc Thêm thành viên vào nhóm
+ * @access Private (Admin của nhóm)
  */
 router.post(
-  '/invite',
-  authenticate,
-  [
-    check('group_id', 'group_id là bắt buộc').isInt(),
-    check('user_id', 'user_id là bắt buộc').isInt(),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  inviteMember
-);  
+    '/:groupId/members',
+    authenticate,
+    authorize('admin'),
+    [
+        check('memberId', 'Member ID is required').isInt()
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            logger.warn('Validation failed for adding member to group', { errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+    addMemberToGroupController
+);
 
+/**
+ * @route DELETE /api/groups/:groupId/members
+ * @desc Xóa thành viên khỏi nhóm
+ * @access Private (Admin của nhóm)
+ */
+router.delete(
+    '/:groupId/members',
+    authenticate,
+    authorize('admin'),
+    [
+        check('memberId', 'Member ID is required').isInt()
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            logger.warn('Validation failed for removing member from group', { errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+    removeMemberFromGroupController
+);
 
 module.exports = router;

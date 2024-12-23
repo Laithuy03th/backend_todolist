@@ -1,61 +1,112 @@
+const { validationResult } = require('express-validator');
 const {
   createCategory,
-  getAllCategories,
-  assignCategoryToTask,
+  getCategoriesByUser,
+  getTasksByCategory,
+  updateCategory,
+  deleteCategory
 } = require('../models/categoryModel');
-const { findTaskById } = require('../models/taskModel'); // Thêm hàm để kiểm tra quyền sở hữu task
 const logger = require('../utils/logger');
 
 // Tạo danh mục mới
-const createNewCategory = async (req, res) => {
+const addCategoryController = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { name } = req.body;
+  const userId = req.user.user_id;
 
   try {
-    const category = await createCategory(name);
-    logger.info(`Category created: ${name}`);
-    res.status(201).json(category);
+    const newCategory = await createCategory(userId, name);
+    logger.info(`Category created for user ${userId}: ${newCategory.category_id}`);
+    res.status(201).json(newCategory);
   } catch (error) {
-    logger.error(`Error creating category: ${error.message}`);
-    res.status(500).json({ message: 'Error tạo danh mục' });
+    logger.error(`Error creating category for user ${userId}: ${error.message}`);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// Lấy tất cả danh mục
-const getCategories = async (req, res) => {
+// Lấy danh sách danh mục của người dùng
+const getCategoriesController = async (req, res) => {
+  const userId = req.user.user_id;
+
   try {
-    const categories = await getAllCategories();
+    const categories = await getCategoriesByUser(userId);
+    logger.info(`Categories retrieved for user ${userId}`);
     res.status(200).json(categories);
   } catch (error) {
-    logger.error(`Error fetching categories: ${error.message}`);
-    res.status(500).json({ message: 'Error lấy danh mục' });
+    logger.error(`Error retrieving categories for user ${userId}: ${error.message}`);
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Gán danh mục cho nhiệm vụ
-const assignCategory = async (req, res) => {
-  const userId = req.user; // Lấy user_id từ middleware authenticate
-  const { task_id, category_id } = req.body;
+// Lấy danh sách nhiệm vụ trong danh mục
+const getTasksByCategoryController = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { categoryId } = req.params;
+  const userId = req.user.user_id;
 
   try {
-    // Kiểm tra xem nhiệm vụ có thuộc về người dùng không
-    const task = await findTaskById(task_id);
-    if (!task) {
-      logger.warn(`Task ${task_id} không tồn tại`);
-      return res.status(404).json({ message: 'Nhiệm vụ không tồn tại' });
-    }
-    if (task.user_id !== userId) {
-      logger.warn(`User ${userId} không có quyền gán danh mục cho task ${task_id}`);
-      return res.status(403).json({ message: 'Bạn không có quyền gán danh mục cho nhiệm vụ này' });
-    }
-
-    // Gán danh mục
-    const assignment = await assignCategoryToTask(task_id, category_id);
-    logger.info(`Category ${category_id} assigned to task ${task_id} bởi user ${userId}`);
-    res.status(201).json(assignment);
+    const tasks = await getTasksByCategory(categoryId, userId);
+    logger.info(`Tasks retrieved for category ${categoryId} by user ${userId}`);
+    res.status(200).json(tasks);
   } catch (error) {
-    logger.error(`Error assigning category ${category_id} to task ${task_id}: ${error.message}`);
-    res.status(500).json({ message: 'Error gán danh mục cho nhiệm vụ' });
+    logger.error(`Error retrieving tasks for category ${categoryId} by user ${userId}: ${error.message}`);
+    res.status(400).json({ message: error.message });
   }
 };
 
-module.exports = { createNewCategory, getCategories, assignCategory };
+// Cập nhật danh mục
+const updateCategoryController = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { categoryId } = req.params;
+  const { name } = req.body;
+  const userId = req.user.user_id;
+
+  try {
+    const updatedCategory = await updateCategory(categoryId, userId, name);
+    logger.info(`Category updated for user ${userId}: ${categoryId}`);
+    res.status(200).json(updatedCategory);
+  } catch (error) {
+    logger.error(`Error updating category ${categoryId} for user ${userId}: ${error.message}`);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Xóa danh mục (tự động xóa nhiệm vụ liên quan)
+const deleteCategoryController = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { categoryId } = req.params;
+  const userId = req.user.user_id;
+
+  try {
+    const deletedCategory = await deleteCategory(categoryId, userId);
+    logger.info(`Category deleted for user ${userId}: ${categoryId}`);
+    res.status(200).json(deletedCategory);
+  } catch (error) {
+    logger.error(`Error deleting category ${categoryId} for user ${userId}: ${error.message}`);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  addCategoryController,
+  getCategoriesController,
+  getTasksByCategoryController,
+  updateCategoryController,
+  deleteCategoryController
+};

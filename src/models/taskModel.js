@@ -1,66 +1,136 @@
 const pool = require('../config/db');
 
-const createTask = async (userId, title, description, status = 'pending', priority = 'normal', dueDate = null) => {
-  const result = await pool.query(
-    `INSERT INTO tasks (user_id, title, description, status, priority, due_date)
-     VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-    [userId, title, description, status, priority, dueDate]
-  );
-  return result.rows[0];
+// Thêm nhiệm vụ cá nhân mới
+const createTask = async (userId, title, description, dueDate, status = false, categoryId) => {
+    try {
+        // Kiểm tra tính hợp lệ của category_id
+        const categoryValid = await isValidCategory(categoryId);
+        if (!categoryValid) {
+            throw new Error('Category ID không hợp lệ');
+        }
+
+        const result = await pool.query(
+            `INSERT INTO tasks (user_id, title, description, due_date, status, category_id) 
+             VALUES ($1, $2, $3, $4, $5, $6) RETURNING task_id, title, description, due_date, status, category_id, created_at`,
+            [userId, title, description, dueDate, status, categoryId]
+        );
+        return result.rows[0];
+    } catch (error) {
+        throw new Error(`Error creating task: ${error.message}`);
+    }
 };
 
-const getTasksByUserId = async (userId) => {
-  const result = await pool.query(
-    `SELECT * FROM tasks WHERE user_id = $1 ORDER BY created_at DESC`,
-    [userId]
-  );
-  return result.rows;
+// Lấy danh sách nhiệm vụ của người dùng (kèm lọc theo status)
+const getTasksByUser = async (userId, status = null) => {
+    try {
+        let query = `SELECT task_id, title, description, due_date, status, category_id, created_at 
+                     FROM tasks WHERE user_id = $1 AND is_deleted = false`;
+        const values = [userId];
+
+        // Nếu cần lọc theo status
+        if (status !== null) {
+            query += ` AND status = $2`;
+            values.push(status);
+        }
+
+        const result = await pool.query(query, values);
+        return result.rows;
+    } catch (error) {
+        throw new Error(`Error retrieving tasks: ${error.message}`);
+    }
 };
 
-const findTaskById = async (taskId) => {
-  const result = await pool.query('SELECT * FROM tasks WHERE task_id = $1', [taskId]);
-  return result.rows[0];
+// Cập nhật thông tin nhiệm vụ
+const updateTask = async (taskId, userId, fields) => {
+    try {
+        // Kiểm tra xem nhiệm vụ có thuộc về người dùng không
+        const taskOwner = await isTaskOwner(taskId, userId);
+        if (!taskOwner) {
+            throw new Error('Người dùng không có quyền chỉnh sửa nhiệm vụ này');
+        }
+
+        // Kiểm tra tính hợp lệ của category_id nếu được cập nhật
+        if (fields.category_id) {
+            const categoryValid = await isValidCategory(fields.category_id);
+            if (!categoryValid) {
+                throw new Error('Category ID không hợp lệ');
+            }
+        }
+
+        const allowedFields = ['title', 'description', 'due_date', 'status', 'category_id'];
+        const updates = Object.keys(fields)
+            .filter((key) => allowedFields.includes(key))
+            .map((key, index) => `${key} = $${index + 1}`)
+            .join(', ');
+
+        if (!updates) {
+            throw new Error('No valid fields to update');
+        }
+
+        const values = Object.values(fields);
+        const result = await pool.query(
+            `UPDATE tasks SET ${updates}, updated_at = CURRENT_TIMESTAMP 
+             WHERE task_id = $${values.length + 1} AND is_deleted = false 
+             RETURNING task_id, title, description, due_date, status, category_id, updated_at`,
+            [...values, taskId]
+        );
+
+        return result.rows[0];
+    } catch (error) {
+        throw new Error(`Error updating task: ${error.message}`);
+    }
 };
 
-// Cập nhật task (kiểm tra quyền)
-const updateTask = async (taskId, fields, userId) => {
-  // Kiểm tra xem task có thuộc quyền sở hữu của user không
-  const taskCheck = await pool.query(
-    `SELECT user_id FROM tasks WHERE task_id = $1`,
-    [taskId]
-  );
-
-  const taskOwner = taskCheck.rows[0]?.user_id;
-  if (!taskOwner) throw new Error('Task không tồn tại');
-  if (taskOwner !== userId) throw new Error('Bạn không có quyền cập nhật task này');
-
-  // Cập nhật task
-  const setString = Object.keys(fields)
-    .map((key, index) => `${key} = $${index + 1}`)
-    .join(', ');
-  const values = Object.values(fields);
-
-  const result = await pool.query(
-    `UPDATE tasks SET ${setString}, updated_at = CURRENT_TIMESTAMP WHERE task_id = $${values.length + 1} RETURNING *`,
-    [...values, taskId]
-  );
-  return result.rows[0];
-};
-
-// Xóa task (kiểm tra quyền)
+// Xóa nhiệm vụ (xóa mềm)
 const deleteTask = async (taskId, userId) => {
-  // Kiểm tra xem task có thuộc quyền sở hữu của user không
-  const taskCheck = await pool.query(
-    `SELECT user_id FROM tasks WHERE task_id = $1`,
-    [taskId]
-  );
+    try {
+        // Kiểm tra xem nhiệm vụ có thuộc về người dùng không
+        const taskOwner = await isTaskOwner(taskId, userId);
+        if (!taskOwner) {
+            throw new Error('Người dùng không có quyền xóa nhiệm vụ này');
+        }
 
-  const taskOwner = taskCheck.rows[0]?.user_id;
-  if (!taskOwner) throw new Error('Task không tồn tại');
-  if (taskOwner !== userId) throw new Error('Bạn không có quyền xóa task này');
-
-  // Xóa task
-  await pool.query('DELETE FROM tasks WHERE task_id = $1', [taskId]);
+        const result = await pool.query(
+            `UPDATE tasks SET is_deleted = true, updated_at = CURRENT_TIMESTAMP 
+             WHERE task_id = $1 RETURNING task_id, title, description, due_date, status, category_id, updated_at`,
+            [taskId]
+        );
+        return result.rows[0];
+    } catch (error) {
+        throw new Error(`Error deleting task: ${error.message}`);
+    }
 };
 
-module.exports = { createTask, getTasksByUserId, updateTask, deleteTask, findTaskById };
+// Kiểm tra danh mục hợp lệ
+const isValidCategory = async (categoryId) => {
+    try {
+        const result = await pool.query(
+            `SELECT category_id FROM categories WHERE category_id = $1`,
+            [categoryId]
+        );
+        return result.rowCount > 0;
+    } catch (error) {
+        throw new Error(`Error validating category: ${error.message}`);
+    }
+};
+
+// Kiểm tra xem nhiệm vụ có thuộc về người dùng không
+const isTaskOwner = async (taskId, userId) => {
+    try {
+        const result = await pool.query(
+            `SELECT task_id FROM tasks WHERE task_id = $1 AND user_id = $2 AND is_deleted = false`,
+            [taskId, userId]
+        );
+        return result.rowCount > 0;
+    } catch (error) {
+        throw new Error(`Error verifying task ownership: ${error.message}`);
+    }
+};
+
+module.exports = {
+    createTask,
+    getTasksByUser,
+    updateTask,
+    deleteTask,
+    isValidCategory
+};

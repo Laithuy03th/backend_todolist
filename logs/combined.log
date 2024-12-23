@@ -77,3 +77,19 @@
 2024-12-19 16:03:21 info: ::1 - - [19/Dec/2024:09:03:21 +0000] "POST /api/auth/register HTTP/1.1" 201 275 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 2024-12-19 16:04:17 warn: Login failed: Mật khẩu không chính xác cho email Thuy.LT226126@sis.hust.edu.vn.
 2024-12-19 16:04:17 info: ::1 - - [19/Dec/2024:09:04:17 +0000] "POST /api/auth/login HTTP/1.1" 400 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 21:25:06 info: Server is running on port 5000
+2024-12-19 21:25:06 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-19 21:25:17 info: ::1 - - [19/Dec/2024:14:25:17 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 21:25:17 info: ::1 - - [19/Dec/2024:14:25:17 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 21:25:17 info: ::1 - - [19/Dec/2024:14:25:17 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 21:25:17 info: ::1 - - [19/Dec/2024:14:25:17 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 21:25:18 info: ::1 - - [19/Dec/2024:14:25:18 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+2024-12-19 22:35:38 info: Server is running on port 5000
+2024-12-19 22:35:38 info: Swagger docs available at http://localhost:5000/api-docs
+2024-12-19 22:39:07 info: ::1 - - [19/Dec/2024:15:39:07 +0000] "POST /api/register HTTP/1.1" 404 152 "-" "PostmanRuntime/7.43.0"
+2024-12-19 22:39:31 info: ::1 - - [19/Dec/2024:15:39:31 +0000] "POST /api/register HTTP/1.1" 404 152 "-" "PostmanRuntime/7.43.0"
+2024-12-19 22:46:04 info: ::1 - - [19/Dec/2024:15:46:04 +0000] "POST /api/auth/register HTTP/1.1" 400 122 "-" "PostmanRuntime/7.43.0"
+2024-12-19 22:46:28 info: User registered: laithuy07@gmail.com
+2024-12-19 22:46:28 info: ::1 - - [19/Dec/2024:15:46:28 +0000] "POST /api/auth/register HTTP/1.1" 201 270 "-" "PostmanRuntime/7.43.0"
+2024-12-19 22:51:43 info: User logged in: laithuy07@gmail.com
+2024-12-19 22:51:43 info: ::1 - - [19/Dec/2024:15:51:43 +0000] "POST /api/auth/login HTTP/1.1" 200 270 "-" "PostmanRuntime/7.43.0"

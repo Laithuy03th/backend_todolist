@@ -1,0 +1,26 @@
+[2024-12-23 14:40:45] INFO: Server is running on port 5000
+[2024-12-23 14:40:45] INFO: Swagger docs available at http://localhost:5000/api-docs
+[2024-12-23 14:40:59] INFO: ::1 - - [23/Dec/2024:07:40:59 +0000] "GET /api-docs HTTP/1.1" 301 158 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 14:40:59] INFO: ::1 - - [23/Dec/2024:07:40:59 +0000] "GET /api-docs/ HTTP/1.1" 200 3106 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 14:40:59] INFO: ::1 - - [23/Dec/2024:07:40:59 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 200 152072 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 14:40:59] INFO: ::1 - - [23/Dec/2024:07:40:59 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 200 230007 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 14:40:59] INFO: ::1 - - [23/Dec/2024:07:40:59 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 200 1426050 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 14:40:59] INFO: ::1 - - [23/Dec/2024:07:40:59 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 21156 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 18:20:54] INFO: Server is running on port 5000
+[2024-12-23 18:20:54] INFO: Swagger docs available at http://localhost:5000/api-docs
+[2024-12-23 18:21:04] INFO: ::1 - - [23/Dec/2024:11:21:04 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 18:21:04] INFO: ::1 - - [23/Dec/2024:11:21:04 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 18:21:04] INFO: ::1 - - [23/Dec/2024:11:21:04 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 18:21:04] INFO: ::1 - - [23/Dec/2024:11:21:04 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 18:21:04] INFO: ::1 - - [23/Dec/2024:11:21:04 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 22463 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 19:32:23] ERROR: Error registering user: Error creating user: duplicate key value violates unique constraint "users_username_key"
+[2024-12-23 19:32:23] INFO: ::1 - - [23/Dec/2024:12:32:23 +0000] "POST /api/auth/register HTTP/1.1" 500 32 "-" "PostmanRuntime/7.43.0"
+[2024-12-23 19:45:30] INFO: Server is running on port 5000
+[2024-12-23 19:45:30] INFO: Swagger docs available at http://localhost:5000/api-docs
+[2024-12-23 19:45:41] INFO: ::1 - - [23/Dec/2024:12:45:41 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 19:45:41] INFO: ::1 - - [23/Dec/2024:12:45:41 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 19:45:41] INFO: ::1 - - [23/Dec/2024:12:45:41 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 19:45:41] INFO: ::1 - - [23/Dec/2024:12:45:41 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 19:45:42] INFO: ::1 - - [23/Dec/2024:12:45:42 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-23 19:47:05] INFO: User registered: hello03th@gmail.com
+[2024-12-23 19:47:05] INFO: ::1 - - [23/Dec/2024:12:47:05 +0000] "POST /api/auth/register HTTP/1.1" 201 246 "-" "PostmanRuntime/7.43.0"

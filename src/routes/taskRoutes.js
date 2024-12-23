@@ -1,21 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const { createNewTask, getAllTasks, modifyTask, removeTask } = require('../controllers/taskController');
-const authenticate = require('../middleware/authMiddleware');
 const { check, validationResult } = require('express-validator');
+const {
+    addTaskController,
+    getUserTasksController,
+    updateTaskController,
+    deleteTaskController
+} = require('../controllers/taskController');
+const authenticate = require('../middleware/authMiddleware');
 
 /**
  * @swagger
  * tags:
  *   name: Tasks
- *   description: API for managing tasks
+ *   description: API for managing personal tasks
  */
 
 /**
  * @swagger
  * /api/tasks:
  *   post:
- *     summary: Create a new task
+ *     summary: Add a new task
  *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
@@ -27,68 +32,71 @@ const { check, validationResult } = require('express-validator');
  *             type: object
  *             required:
  *               - title
+ *               - description
+ *               - dueDate
+ *               - categoryId
  *             properties:
  *               title:
  *                 type: string
  *               description:
  *                 type: string
+ *               dueDate:
+ *                 type: string
+ *                 format: date
  *               status:
- *                 type: string
- *                 enum: [pending, in-progress, completed]
- *               priority:
- *                 type: string
- *                 enum: [low, normal, high]
- *               due_date:
- *                 type: string
- *                 format: date-time
+ *                 type: boolean
+ *               categoryId:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Task created successfully
  *       400:
  *         description: Bad request
- *       500:
- *         description: Server error
  */
 router.post(
-  '/',
-  authenticate,
-  [
-    check('title', 'Tiêu đề nhiệm vụ là bắt buộc').not().isEmpty(),
-    check('status').optional().isIn(['pending', 'in-progress', 'completed']),
-    check('priority').optional().isIn(['low', 'normal', 'high']),
-    check('due_date').optional().isISO8601(),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  createNewTask
+    '/',
+    authenticate,
+    [
+        check('title', 'Title is required').notEmpty(),
+        check('description', 'Description is required').notEmpty(),
+        check('dueDate', 'Invalid date format').optional().isISO8601(),
+        check('categoryId', 'Category ID must be an integer').optional().isInt(),
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+    addTaskController
 );
 
 /**
  * @swagger
  * /api/tasks:
  *   get:
- *     summary: Get all tasks for the authenticated user
+ *     summary: Get all tasks for the logged-in user
  *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: boolean
+ *         description: Filter tasks by status (true for completed, false for incomplete)
  *     responses:
  *       200:
- *         description: List of tasks
- *       401:
- *         description: Unauthorized
+ *         description: List of tasks retrieved successfully
  *       500:
- *         description: Server error
+ *         description: Internal server error
  */
-router.get('/', authenticate, getAllTasks);
+router.get('/', authenticate, getUserTasksController);
 
 /**
  * @swagger
- * /api/tasks/{id}:
+ * /api/tasks/{taskId}:
  *   put:
  *     summary: Update a task
  *     tags: [Tasks]
@@ -96,11 +104,11 @@ router.get('/', authenticate, getAllTasks);
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the task to update
+ *         name: taskId
  *         schema:
  *           type: integer
+ *         required: true
+ *         description: The ID of the task to update
  *     requestBody:
  *       required: true
  *       content:
@@ -112,66 +120,60 @@ router.get('/', authenticate, getAllTasks);
  *                 type: string
  *               description:
  *                 type: string
+ *               dueDate:
+ *                 type: string
+ *                 format: date
  *               status:
- *                 type: string
- *                 enum: [pending, in-progress, completed]
- *               priority:
- *                 type: string
- *                 enum: [low, normal, high]
- *               due_date:
- *                 type: string
- *                 format: date-time
+ *                 type: boolean
+ *               categoryId:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Task updated successfully
  *       400:
  *         description: Bad request
- *       404:
- *         description: Task not found
- *       500:
- *         description: Server error
  */
 router.put(
-  '/:id',
-  authenticate,
-  [
-    check('status').optional().isIn(['pending', 'in-progress', 'completed']),
-    check('priority').optional().isIn(['low', 'normal', 'high']),
-    check('due_date').optional().isISO8601(),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-  modifyTask
+    '/:taskId',
+    authenticate,
+    [
+        check('title', 'Title is required').optional().notEmpty(),
+        check('description', 'Description is required').optional().notEmpty(),
+        check('dueDate', 'Invalid date format').optional().isISO8601(),
+        check('status', 'Status must be boolean').optional().isBoolean(),
+        check('categoryId', 'Category ID must be an integer').optional().isInt(),
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+    updateTaskController
 );
 
 /**
  * @swagger
- * /api/tasks/{id}:
+ * /api/tasks/{taskId}:
  *   delete:
- *     summary: Delete a task
+ *     summary: Delete a task (soft delete)
  *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the task to delete
+ *         name: taskId
  *         schema:
  *           type: integer
+ *         required: true
+ *         description: The ID of the task to delete
  *     responses:
  *       200:
  *         description: Task deleted successfully
- *       404:
- *         description: Task not found
- *       500:
- *         description: Server error
+ *       400:
+ *         description: Bad request
  */
-router.delete('/:id', authenticate, removeTask);
+router.delete('/:taskId', authenticate, deleteTaskController);
 
 module.exports = router;

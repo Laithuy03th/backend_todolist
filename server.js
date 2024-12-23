@@ -13,7 +13,10 @@ const groupRoutes = require('./src/routes/groupRoutes');
 const categoryRoutes = require('./src/routes/categoryRoutes');
 const groupTaskRoutes = require('./src/routes/groupTaskRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
+const notificationRoutes = require('./src/routes/notificationRoutes');
 const logger = require('./src/utils/logger');
+
+
 
 
 dotenv.config();
@@ -78,6 +81,8 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/group-tasks', groupTaskRoutes);
+app.use('/api/notifications', notificationRoutes);
+
 
 // Root route
 app.get('/', (req, res) => {
