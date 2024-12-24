@@ -45,7 +45,7 @@ const findUserById = async (id) => {
 // Cập nhật thông tin cá nhân của người dùng
 const updateUser = async (id, fields) => {
     try {
-        const allowedFields = ['username', 'address', 'password']; // Giới hạn các trường có thể cập nhật
+        const allowedFields = ['username', 'address', 'password']; // Các trường hợp cho phép cập nhật
         const updateData = Object.keys(fields)
             .filter((key) => allowedFields.includes(key))
             .map((key, index) => `${key} = $${index + 1}`)

@@ -46,10 +46,9 @@ const registerUser = async (req, res) => {
             },
         });
     } catch (error) {
-      logger.error(`Error registering user: ${error.stack}`);
-      res.status(500).json({ message: 'Lỗi hệ thống', error: error.message });
+        logger.error(`Error registering user: ${error.stack}`);
+        res.status(500).json({ message: 'Lỗi hệ thống', error: error.message });
     }
-      
 };
 
 // Đăng nhập người dùng
@@ -103,7 +102,13 @@ const updateUserProfile = async (req, res) => {
     const updates = req.body;
 
     try {
-        const updatedUser = await updateUser(user_id, updates);
+        // Nếu có cập nhật mật khẩu, mã hóa nó
+        if (updates.password) {
+            const salt = await bcrypt.genSalt(10);
+            updates.password = await bcrypt.hash(updates.password, salt);
+        }
+
+        const updatedUser = await updateUser(user_id, updates); // Hàm này sẽ gọi model để cập nhật
         if (!updatedUser) {
             return res.status(404).json({ message: 'Người dùng không tồn tại' });
         }

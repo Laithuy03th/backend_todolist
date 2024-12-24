@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
     getNotifications,
-    markNotificationsAsRead
+    markNotifications
 } = require('../controllers/notificationController');
 const authenticate = require('../middleware/authMiddleware'); // Middleware để xác thực người dùng
 
@@ -58,7 +58,7 @@ router.get('/', authenticate, async (req, res) => {
 router.put('/mark-as-read', authenticate, async (req, res) => {
     try {
         const userId = req.user.user_id; // Lấy user_id từ token
-        const result = await markNotificationsAsRead(userId);
+        const result = await markNotifications(userId);
         res.status(200).json({ message: `${result} notifications marked as read` });
     } catch (error) {
         res.status(500).json({ message: error.message });

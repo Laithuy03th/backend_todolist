@@ -7,7 +7,8 @@ const createGroup = async (name, description, userId) => {
         // Tạo nhóm mới
         const groupResult = await pool.query(
             `INSERT INTO groups (name, description, created_at) 
-             VALUES ($1, $2, CURRENT_TIMESTAMP) RETURNING group_id`,
+             VALUES ($1, $2, CURRENT_TIMESTAMP) 
+             RETURNING group_id`,
             [name, description]
         );
         const groupId = groupResult.rows[0].group_id;
@@ -19,7 +20,7 @@ const createGroup = async (name, description, userId) => {
             [userId, groupId]
         );
 
-        return groupId;
+        return { groupId, message: 'Group created successfully' };
     } catch (error) {
         throw new Error(`Error creating group: ${error.message}`);
     }
@@ -30,7 +31,8 @@ const updateGroup = async (groupId, userId, name, description) => {
     try {
         // Kiểm tra quyền admin
         const adminCheck = await pool.query(
-            `SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND role = 'admin'`,
+            `SELECT role FROM user_groups 
+             WHERE user_id = $1 AND group_id = $2 AND role = 'admin' AND is_deleted = false`,
             [userId, groupId]
         );
         if (adminCheck.rowCount === 0) {
@@ -39,7 +41,8 @@ const updateGroup = async (groupId, userId, name, description) => {
 
         const result = await pool.query(
             `UPDATE groups SET name = $1, description = $2, updated_at = CURRENT_TIMESTAMP 
-             WHERE group_id = $3 AND is_deleted = false RETURNING group_id, name, description`,
+             WHERE group_id = $3 AND is_deleted = false 
+             RETURNING group_id, name, description`,
             [name, description, groupId]
         );
 
@@ -58,7 +61,8 @@ const deleteGroup = async (groupId, userId) => {
     try {
         // Kiểm tra quyền admin
         const adminCheck = await pool.query(
-            `SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND role = 'admin'`,
+            `SELECT role FROM user_groups 
+             WHERE user_id = $1 AND group_id = $2 AND role = 'admin' AND is_deleted = false`,
             [userId, groupId]
         );
         if (adminCheck.rowCount === 0) {
@@ -67,7 +71,8 @@ const deleteGroup = async (groupId, userId) => {
 
         const result = await pool.query(
             `UPDATE groups SET is_deleted = true, updated_at = CURRENT_TIMESTAMP 
-             WHERE group_id = $1 RETURNING group_id`,
+             WHERE group_id = $1 
+             RETURNING group_id`,
             [groupId]
         );
 
@@ -86,7 +91,8 @@ const addMemberToGroup = async (groupId, adminId, memberId) => {
     try {
         // Kiểm tra quyền admin
         const adminCheck = await pool.query(
-            `SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND role = 'admin'`,
+            `SELECT role FROM user_groups 
+             WHERE user_id = $1 AND group_id = $2 AND role = 'admin' AND is_deleted = false`,
             [adminId, groupId]
         );
         if (adminCheck.rowCount === 0) {
@@ -95,26 +101,27 @@ const addMemberToGroup = async (groupId, adminId, memberId) => {
 
         // Kiểm tra thành viên đã tồn tại
         const memberCheck = await pool.query(
-            `SELECT user_id FROM user_groups WHERE user_id = $1 AND group_id = $2`,
+            `SELECT user_id FROM user_groups 
+             WHERE user_id = $1 AND group_id = $2 AND is_deleted = false`,
             [memberId, groupId]
         );
         if (memberCheck.rowCount > 0) {
             throw new Error('User is already a member of this group');
         }
 
-         // thêm thành viên vào nhómnhóm
-        await pool.query(
+        // Thêm thành viên
+        const result = await pool.query(
             `INSERT INTO user_groups (user_id, group_id, role, created_at) 
-             VALUES ($1, $2, 'member', CURRENT_TIMESTAMP)`,
+             VALUES ($1, $2, 'member', CURRENT_TIMESTAMP) 
+             RETURNING user_group_id, user_id, group_id, role`,
             [memberId, groupId]
         );
 
-         // Gửi thông báo đến thành viên
-         const message = `Bạn đã được mời tham gia nhóm ID: ${groupId}`;
-         await createNotification(memberId, message);
+        // Gửi thông báo
+        const message = `You have been added to group: ${groupId}`;
+        await createNotification(memberId,groupId, message);
 
-
-        return { groupId, memberId };
+        return result.rows[0];
     } catch (error) {
         throw new Error(`Error adding member to group: ${error.message}`);
     }
@@ -125,7 +132,8 @@ const removeMemberFromGroup = async (groupId, adminId, memberId) => {
     try {
         // Kiểm tra quyền admin
         const adminCheck = await pool.query(
-            `SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND role = 'admin'`,
+            `SELECT role FROM user_groups 
+             WHERE user_id = $1 AND group_id = $2 AND role = 'admin' AND is_deleted = false`,
             [adminId, groupId]
         );
         if (adminCheck.rowCount === 0) {
@@ -134,19 +142,24 @@ const removeMemberFromGroup = async (groupId, adminId, memberId) => {
 
         // Không cho phép xóa admin cuối cùng
         const adminCount = await pool.query(
-            `SELECT COUNT(*) AS admin_count FROM user_groups WHERE group_id = $1 AND role = 'admin'`,
+            `SELECT COUNT(*) AS admin_count 
+             FROM user_groups 
+             WHERE group_id = $1 AND role = 'admin' AND is_deleted = false`,
             [groupId]
         );
         if (adminCount.rows[0].admin_count === 1 && memberId === adminId) {
             throw new Error('Cannot remove the last admin of the group');
         }
 
-        await pool.query(
-            `DELETE FROM user_groups WHERE user_id = $1 AND group_id = $2`,
+        // Xóa thành viên (xóa mềm)
+        const result = await pool.query(
+            `UPDATE user_groups SET is_deleted = true, updated_at = CURRENT_TIMESTAMP 
+             WHERE user_id = $1 AND group_id = $2 
+             RETURNING user_group_id, user_id, group_id`,
             [memberId, groupId]
         );
 
-        return { groupId, memberId };
+        return result.rows[0];
     } catch (error) {
         throw new Error(`Error removing member from group: ${error.message}`);
     }

@@ -62,8 +62,10 @@ const addMemberToGroupController = async (req, res) => {
 
   try {
     const addedMember = await addMemberToGroup(groupId, adminId, memberId);
+    
     // Tạo thông báo cho thành viên được mời
-    await createNotificationForGroupInvite(memberId, `Bạn đã được mời vào nhóm ${groupId} bởi Admin ${adminId}`);
+    const message = `Bạn đã được mời vào nhóm ${groupId} bởi Admin ${adminId}`;
+    await createNotificationForGroupInvite(memberId, groupId, message); 
 
     logger.info(`Member added successfully: memberId=${memberId}, groupId=${groupId}, addedBy=${adminId}`);
     res.status(200).json({ addedMember, message: 'Member added successfully' });

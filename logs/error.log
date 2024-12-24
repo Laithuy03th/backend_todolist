@@ -1,1 +1,23 @@
 [2024-12-23 19:32:23] ERROR: Error registering user: Error creating user: duplicate key value violates unique constraint "users_username_key"
+[2024-12-23 23:23:25] ERROR: Error creating task for user 13: Error creating task: Category ID không hợp lệ
+[2024-12-23 23:25:55] ERROR: Error creating category for user 13: Error creating category: column "user_id" of relation "categories" does not exist
+[2024-12-24 08:12:17] ERROR: Error creating task for user 14: Error creating task: Category ID không hợp lệ
+[2024-12-24 08:20:10] ERROR: Error creating category for user 14: Error creating category: column "user_id" of relation "categories" does not exist
+[2024-12-24 09:28:32] ERROR: Error deleting task for user 15: Error deleting task: Error verifying task ownership: invalid input syntax for type integer: "{taskId}"
+[2024-12-24 13:14:42] ERROR: Token verification failed: jwt expired
+[2024-12-24 14:23:50] ERROR: Token verification failed: jwt expired
+[2024-12-24 14:28:58] ERROR: Error adding member memberId=14 to groupId=1: Error adding member to group: null value in column "group_id" of relation "notifications" violates not-null constraint
+[2024-12-24 16:15:33] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 17:02:11] ERROR: Token verification failed: jwt expired
+[2024-12-24 17:11:52] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 17:23:50] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 17:24:44] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 17:43:05] ERROR: Error creating task for user 15: Category ID không hợp lệ hoặc không thuộc về người dùng
+[2024-12-24 17:45:01] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 18:09:34] ERROR: Token verification failed: jwt expired
+[2024-12-24 18:13:30] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 18:53:50] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 18:54:38] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 18:54:52] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 18:55:17] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 21:37:21] ERROR: Error updating task for user 16: Error updating task: could not determine data type of parameter $4
