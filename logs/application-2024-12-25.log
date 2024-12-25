@@ -172,3 +172,111 @@
 [2024-12-25 14:34:44] INFO: ::1 - - [25/Dec/2024:07:34:44 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
 [2024-12-25 14:35:11] INFO: User authenticated: user_id=15
 [2024-12-25 14:35:11] INFO: ::1 - - [25/Dec/2024:07:35:11 +0000] "GET /api/auth/profile HTTP/1.1" 200 129 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 16:30:15] INFO: Server is running on port 5001
+[2024-12-25 16:30:15] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 16:30:22] INFO: ::1 - - [25/Dec/2024:09:30:22 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:30:22] INFO: ::1 - - [25/Dec/2024:09:30:22 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:30:22] INFO: ::1 - - [25/Dec/2024:09:30:22 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:30:22] INFO: ::1 - - [25/Dec/2024:09:30:22 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:30:22] INFO: ::1 - - [25/Dec/2024:09:30:22 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:31:00] INFO: User logged in: helen@gmail.com
+[2024-12-25 16:31:00] INFO: ::1 - - [25/Dec/2024:09:31:00 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 16:39:57] INFO: User authenticated: user_id=15
+[2024-12-25 16:39:57] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 16:39:57] INFO: Task created successfully by admin 15 in group 2
+[2024-12-25 16:39:57] INFO: ::1 - - [25/Dec/2024:09:39:57 +0000] "POST /api/group-tasks HTTP/1.1" 201 154 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 16:40:49] INFO: User authenticated: user_id=15
+[2024-12-25 16:40:49] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 16:40:49] INFO: ::1 - - [25/Dec/2024:09:40:49 +0000] "GET /api/group-tasks HTTP/1.1" 400 76 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 16:47:26] INFO: ::1 - - [25/Dec/2024:09:47:26 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:47:26] INFO: ::1 - - [25/Dec/2024:09:47:26 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:47:26] INFO: ::1 - - [25/Dec/2024:09:47:26 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:47:26] INFO: ::1 - - [25/Dec/2024:09:47:26 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:47:26] INFO: ::1 - - [25/Dec/2024:09:47:26 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:47:27] INFO: ::1 - - [25/Dec/2024:09:47:27 +0000] "GET /api-docs/favicon-32x32.png HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 16:47:55] INFO: User authenticated: user_id=15
+[2024-12-25 16:47:55] WARN: Validation error: [{"type":"field","msg":"Group ID is required","path":"groupId","location":"body"}]
+[2024-12-25 16:47:55] INFO: ::1 - - [25/Dec/2024:09:47:55 +0000] "PUT /api/group-tasks/2 HTTP/1.1" 400 93 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 16:50:29] INFO: User authenticated: user_id=15
+[2024-12-25 16:50:29] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 16:50:29] INFO: ::1 - - [25/Dec/2024:09:50:29 +0000] "GET /api/group-tasks HTTP/1.1" 400 76 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 19:42:44] INFO: User logged in: helen@gmail.com
+[2024-12-25 19:42:44] INFO: ::1 - - [25/Dec/2024:12:42:44 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 19:47:06] INFO: User authenticated: user_id=15
+[2024-12-25 19:47:06] ERROR: Error updating task for user 15: Error updating task: Người dùng không có quyền chỉnh sửa nhiệm vụ này
+[2024-12-25 19:47:06] INFO: ::1 - - [25/Dec/2024:12:47:06 +0000] "PUT /api/tasks/5 HTTP/1.1" 400 100 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 19:47:56] INFO: User authenticated: user_id=15
+[2024-12-25 19:47:56] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 19:47:56] INFO: ::1 - - [25/Dec/2024:12:47:56 +0000] "PUT /api/tasks/4 HTTP/1.1" 400 80 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:00:56] ERROR: Token verification failed: jwt expired
+[2024-12-25 21:00:56] INFO: ::1 - - [25/Dec/2024:14:00:56 +0000] "PUT /api/tasks/4 HTTP/1.1" 401 63 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:02:11] INFO: User logged in: helen@gmail.com
+[2024-12-25 21:02:11] INFO: ::1 - - [25/Dec/2024:14:02:11 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:04:03] INFO: User authenticated: user_id=15
+[2024-12-25 21:04:03] INFO: Task updated for user 15: 4
+[2024-12-25 21:04:03] INFO: ::1 - - [25/Dec/2024:14:04:03 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 165 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:04:41] INFO: User authenticated: user_id=15
+[2024-12-25 21:04:41] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $3
+[2024-12-25 21:04:41] INFO: ::1 - - [25/Dec/2024:14:04:41 +0000] "PUT /api/tasks/4 HTTP/1.1" 400 80 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:05:02] INFO: User authenticated: user_id=15
+[2024-12-25 21:05:02] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 21:05:02] INFO: ::1 - - [25/Dec/2024:14:05:02 +0000] "PUT /api/tasks/4 HTTP/1.1" 400 80 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:27:17] INFO: User authenticated: user_id=15
+[2024-12-25 21:27:17] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $3
+[2024-12-25 21:27:17] INFO: ::1 - - [25/Dec/2024:14:27:17 +0000] "PUT /api/tasks/4 HTTP/1.1" 400 80 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:31:05] INFO: User authenticated: user_id=15
+[2024-12-25 21:31:05] INFO: Task updated for user 15: 4
+[2024-12-25 21:31:05] INFO: ::1 - - [25/Dec/2024:14:31:05 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 165 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:32:21] INFO: User authenticated: user_id=15
+[2024-12-25 21:32:21] INFO: Task updated for user 15: 4
+[2024-12-25 21:32:21] INFO: ::1 - - [25/Dec/2024:14:32:21 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 165 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:36:19] INFO: Server is running on port 5001
+[2024-12-25 21:36:19] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 21:36:28] INFO: ::1 - - [25/Dec/2024:14:36:28 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 21:36:28] INFO: ::1 - - [25/Dec/2024:14:36:28 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 21:36:28] INFO: ::1 - - [25/Dec/2024:14:36:28 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 21:36:28] INFO: ::1 - - [25/Dec/2024:14:36:28 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 21:36:28] INFO: ::1 - - [25/Dec/2024:14:36:28 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 21:38:59] INFO: User authenticated: user_id=15
+[2024-12-25 21:38:59] INFO: Task updated for user 15: 4
+[2024-12-25 21:38:59] INFO: ::1 - - [25/Dec/2024:14:38:59 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 165 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:39:28] INFO: User authenticated: user_id=15
+[2024-12-25 21:39:28] INFO: Task updated for user 15: 4
+[2024-12-25 21:39:28] INFO: ::1 - - [25/Dec/2024:14:39:28 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 164 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 21:40:05] INFO: User authenticated: user_id=15
+[2024-12-25 21:40:05] INFO: Task updated for user 15: 4
+[2024-12-25 21:40:05] INFO: ::1 - - [25/Dec/2024:14:40:05 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 165 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 22:01:26] INFO: Server is running on port 5001
+[2024-12-25 22:01:26] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 22:01:38] INFO: ::1 - - [25/Dec/2024:15:01:38 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:01:38] INFO: ::1 - - [25/Dec/2024:15:01:38 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:01:38] INFO: ::1 - - [25/Dec/2024:15:01:38 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:01:38] INFO: ::1 - - [25/Dec/2024:15:01:38 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:01:39] INFO: ::1 - - [25/Dec/2024:15:01:39 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:46:13] INFO: Server is running on port 5001
+[2024-12-25 22:46:13] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 22:46:21] INFO: ::1 - - [25/Dec/2024:15:46:21 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:46:21] INFO: ::1 - - [25/Dec/2024:15:46:21 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:46:21] INFO: ::1 - - [25/Dec/2024:15:46:21 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:46:21] INFO: ::1 - - [25/Dec/2024:15:46:21 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:46:22] INFO: ::1 - - [25/Dec/2024:15:46:22 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 28015 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:47:11] INFO: Server is running on port 5001
+[2024-12-25 22:47:11] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 22:47:18] INFO: ::1 - - [25/Dec/2024:15:47:18 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:47:18] INFO: ::1 - - [25/Dec/2024:15:47:18 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:47:18] INFO: ::1 - - [25/Dec/2024:15:47:18 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:47:18] INFO: ::1 - - [25/Dec/2024:15:47:18 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:47:19] INFO: ::1 - - [25/Dec/2024:15:47:19 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 28014 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 22:47:34] ERROR: Token verification failed: jwt expired
+[2024-12-25 22:47:34] INFO: ::1 - - [25/Dec/2024:15:47:34 +0000] "PUT /api/tasks/4 HTTP/1.1" 401 63 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 22:50:45] INFO: User logged in: helen@gmail.com
+[2024-12-25 22:50:45] INFO: ::1 - - [25/Dec/2024:15:50:45 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 22:51:41] INFO: User authenticated: user_id=15
+[2024-12-25 22:51:41] INFO: Task updated for user 15: 4
+[2024-12-25 22:51:41] INFO: ::1 - - [25/Dec/2024:15:51:41 +0000] "PUT /api/tasks/4 HTTP/1.1" 200 189 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 22:52:28] INFO: User authenticated: user_id=15
+[2024-12-25 22:52:28] INFO: Tasks retrieved for user 15
+[2024-12-25 22:52:28] INFO: ::1 - - [25/Dec/2024:15:52:28 +0000] "GET /api/tasks HTTP/1.1" 200 191 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 22:53:11] INFO: User authenticated: user_id=15
+[2024-12-25 22:53:11] INFO: Task deleted for user 15: 4
+[2024-12-25 22:53:11] INFO: ::1 - - [25/Dec/2024:15:53:11 +0000] "DELETE /api/tasks/4 HTTP/1.1" 200 189 "-" "PostmanRuntime/7.43.0"

@@ -45,22 +45,35 @@ const updateTaskController = async (req, res) => {
     let fields = req.body;
 
     try {
+        // Kiểm tra taskId hợp lệ
+        const parsedTaskId = parseInt(taskId, 10);
+        if (isNaN(parsedTaskId)) {
+            throw new Error('Invalid taskId');
+        }
+
         // Chuẩn hóa giá trị `status` (nếu tồn tại)
         if (fields.status !== undefined) {
             fields.status = fields.status === true || fields.status === 'true';
         }
 
+        // Chuyển đổi camelCase thành snake_case
+        const convertedFields = {};
+        for (const [key, value] of Object.entries(fields)) {
+            const snakeCaseKey = key.replace(/([A-Z])/g, letter => `_${letter.toLowerCase()}`);
+            convertedFields[snakeCaseKey] = value;
+        }
+
         // Lọc các giá trị không hợp lệ
         const validFields = Object.fromEntries(
-            Object.entries(fields).filter(([key, value]) => value !== undefined && value !== null)
+            Object.entries(convertedFields).filter(([key, value]) => value !== undefined && value !== null)
         );
 
         // Nếu không có trường hợp lệ để cập nhật, trả về lỗi
         if (Object.keys(validFields).length === 0) {
-            throw new Error('Không có trường hợp lệ để cập nhật');
+            throw new Error('Không có trường hợp hợp lệ để cập nhật');
         }
 
-        // Kiểm tra danh mục hợp lệ nếu có
+        // Kiểm tra danh mục hợp lệ nếu có `category_id`
         if (validFields.category_id) {
             const categoryValid = await isValidCategory(validFields.category_id, userId);
             if (!categoryValid) {
@@ -69,15 +82,14 @@ const updateTaskController = async (req, res) => {
         }
 
         // Gọi hàm updateTask để xử lý cập nhật
-        const updatedTask = await updateTask(taskId, userId, validFields);
-        logger.info(`Task updated for user ${userId}: ${taskId}`);
+        const updatedTask = await updateTask(parsedTaskId, userId, validFields);
+        logger.info(`Task updated for user ${userId}: ${parsedTaskId}`);
         res.status(200).json(updatedTask);
     } catch (error) {
         logger.error(`Error updating task for user ${userId}: ${error.message}`);
         res.status(400).json({ message: error.message });
     }
 };
-
 
 
 // Xóa nhiệm vụ (xóa mềm)

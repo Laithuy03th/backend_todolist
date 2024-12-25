@@ -43,3 +43,12 @@
 [2024-12-25 03:06:52] ERROR: Failed to create task: Error creating group task: column "create_by" does not exist
 [2024-12-25 09:55:21] ERROR: Error adding member memberId=9 to groupId=2: Error adding member to group: duplicate key value violates unique constraint "user_groups_user_id_group_id_key"
 [2024-12-25 09:57:46] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 16:40:49] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 16:50:29] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 19:47:06] ERROR: Error updating task for user 15: Error updating task: Người dùng không có quyền chỉnh sửa nhiệm vụ này
+[2024-12-25 19:47:56] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 21:00:56] ERROR: Token verification failed: jwt expired
+[2024-12-25 21:04:41] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $3
+[2024-12-25 21:05:02] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 21:27:17] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $3
+[2024-12-25 22:47:34] ERROR: Token verification failed: jwt expired

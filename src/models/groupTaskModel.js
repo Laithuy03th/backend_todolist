@@ -46,21 +46,29 @@ const updateGroupTask = async (taskId, adminId, groupId, updates) => {
             throw new Error('You do not have permission to update tasks in this group');
         }
 
-        // Chuẩn bị các trường cập nhật
-        const allowedFields = ['title', 'description', 'due_date'];
-        const setClause = Object.keys(updates)
-            .filter(key => allowedFields.includes(key))
-            .map((key, index) => `${key} = $${index + 1}`)
-            .join(', ');
+         // Chuẩn bị các trường cập nhật
+         const allowedFields = ['title', 'description', 'due_date', 'assigned_to', 'status'];
+         const setClause = Object.keys(updates)
+             .filter(key => allowedFields.includes(key))
+             .map((key, index) => `${key} = $${index + 1}`)
+             .join(', ');
+
+
+ 
+         if (setClause.length === 0) {
+             throw new Error('No valid fields provided for update');
+         }
 
         const values = Object.values(updates);
 
-        // Cập nhật nhiệm vụ
-        const result = await pool.query(
-            `UPDATE group_tasks SET ${setClause}, updated_at = CURRENT_TIMESTAMP 
-             WHERE task_id = $${values.length + 1} AND group_id = $${values.length + 2} RETURNING task_id, title, description, due_date`,
-            [...values, taskId, groupId]
-        );
+       // Cập nhật nhiệm vụ
+       const result = await pool.query(
+        `UPDATE group_tasks SET ${setClause}, updated_at = CURRENT_TIMESTAMP 
+         WHERE task_id = $${values.length + 1} AND group_id = $${values.length + 2} RETURNING task_id, group_id, title, description, due_date, assigned_to, status, updated_at`,
+        [...values, taskId, groupId]
+    );
+
+
 
         if (result.rowCount === 0) {
             throw new Error('Task not found or you do not have permission to update it');

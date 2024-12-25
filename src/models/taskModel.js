@@ -66,28 +66,39 @@ const updateTask = async (taskId, userId, fields) => {
             }
         }
 
-        // Xây dựng câu lệnh SQL động
+        // Xây dựng câu lệnh SQL động với cast cho các trường có thể cần
         const allowedFields = ['title', 'description', 'due_date', 'status', 'category_id'];
         const updates = Object.keys(fields)
             .filter((key) => allowedFields.includes(key))
-            .map((key, index) => `${key} = $${index + 1}`)
+            .map((key, index) => {
+                if (key === 'status') {
+                    return `${key} = $${index + 1}::BOOLEAN`;
+                }
+                if (key === 'category_id') {
+                    return `${key} = $${index + 1}::INTEGER`;
+                }
+                if (key === 'due_date') {
+                    return `${key} = $${index + 1}::TIMESTAMP`;
+                }
+                return `${key} = $${index + 1}`;
+            })
             .join(', ');
 
         if (!updates) {
-            throw new Error('Không có trường hợp lệ để cập nhật');
+            throw new Error('Không có trường hợp hợp lệ để cập nhật');
         }
 
         const values = Object.values(fields);
 
-        
         // Thêm console.log để kiểm tra giá trị
         console.log('Fields:', fields); // Hiển thị các field đang cập nhật
         console.log('Values:', values); // Hiển thị giá trị truyền vào câu lệnh SQL
+        console.log('taskId:', taskId, 'userId:', userId); // Kiểm tra taskId và userId
 
         const result = await pool.query(
             `UPDATE tasks 
              SET ${updates}, updated_at = CURRENT_TIMESTAMP 
-             WHERE task_id = $${values.length + 1} AND user_id = $${values.length + 2} AND is_deleted = false 
+             WHERE task_id = $${values.length + 1}::INTEGER AND user_id = $${values.length + 2}::INTEGER AND is_deleted = false 
              RETURNING task_id, title, description, due_date, status, category_id, updated_at`,
             [...values, taskId, userId]
         );
@@ -97,7 +108,6 @@ const updateTask = async (taskId, userId, fields) => {
         throw new Error(`Error updating task: ${error.message}`);
     }
 };
-
 
 
 // Xóa nhiệm vụ (xóa mềm)

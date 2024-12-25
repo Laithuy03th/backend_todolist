@@ -117,8 +117,12 @@ router.put(
   '/:group_task_id',
   authenticate,
   [
-    check('status', 'Status must be either pending or completed').optional().isIn(['pending', 'completed']),
-    check('dueDate', 'Due date must be a valid ISO8601 date').optional().isISO8601()
+    check('groupId', 'Group ID is required').isInt(),
+    check('updates.title', 'Title must be a string').optional().isString(),
+    check('updates.description', 'Description must be a string').optional().isString(),
+    check('updates.dueDate', 'Due date must be a valid ISO8601 date').optional().isISO8601(),
+    check('updates.assignedTo', 'Assigned To must be a valid integer').optional().isInt(),
+    check('updates.status', 'Status must be a boolean').optional().isBoolean()
   ],
   (req, res, next) => {
     const errors = validationResult(req);
@@ -229,5 +233,4 @@ router.patch(
   },
   updateTaskStatusController
 );
-
 module.exports = router;
