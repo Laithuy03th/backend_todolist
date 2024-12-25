@@ -42,26 +42,22 @@ const getUserTasksController = async (req, res) => {
 const updateTaskController = async (req, res) => {
     const { taskId } = req.params;
     const userId = req.user.user_id;
-    const fields = req.body;
+    let fields = req.body;
 
     try {
+        // Chuẩn hóa giá trị `status` (nếu tồn tại)
+        if (fields.status !== undefined) {
+            fields.status = fields.status === true || fields.status === 'true';
+        }
+
         // Lọc các giá trị không hợp lệ
         const validFields = Object.fromEntries(
             Object.entries(fields).filter(([key, value]) => value !== undefined && value !== null)
         );
 
-        // Kiểm tra trạng thái và logic
-        if (validFields.status !== undefined) {
-            const currentTask = await getTasksByUser(userId, null);
-            const taskToUpdate = currentTask.find(task => task.task_id === parseInt(taskId));
-
-            if (!taskToUpdate) {
-                throw new Error('Nhiệm vụ không tồn tại hoặc không thuộc về người dùng');
-            }
-
-            if (taskToUpdate.status === true && validFields.status === false) {
-                throw new Error('Không thể chuyển trạng thái từ hoàn thành về chưa hoàn thành');
-            }
+        // Nếu không có trường hợp lệ để cập nhật, trả về lỗi
+        if (Object.keys(validFields).length === 0) {
+            throw new Error('Không có trường hợp lệ để cập nhật');
         }
 
         // Kiểm tra danh mục hợp lệ nếu có
@@ -72,6 +68,7 @@ const updateTaskController = async (req, res) => {
             }
         }
 
+        // Gọi hàm updateTask để xử lý cập nhật
         const updatedTask = await updateTask(taskId, userId, validFields);
         logger.info(`Task updated for user ${userId}: ${taskId}`);
         res.status(200).json(updatedTask);
@@ -80,6 +77,7 @@ const updateTaskController = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
 
 
 // Xóa nhiệm vụ (xóa mềm)

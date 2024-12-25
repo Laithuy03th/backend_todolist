@@ -1,0 +1,174 @@
+[2024-12-25 00:40:03] INFO: User authenticated: user_id=15
+[2024-12-25 00:40:03] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 00:40:03] INFO: ::1 - - [24/Dec/2024:17:40:03 +0000] "PUT /api/tasks/4 HTTP/1.1" 400 80 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 00:41:28] INFO: User authenticated: user_id=15
+[2024-12-25 00:41:28] INFO: Group created successfully: groupId=[object Object], createdBy=15
+[2024-12-25 00:41:28] INFO: ::1 - - [24/Dec/2024:17:41:28 +0000] "POST /api/groups HTTP/1.1" 201 103 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 00:51:21] INFO: User authenticated: user_id=15
+[2024-12-25 00:51:21] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 00:51:21] INFO: Group updated successfully: groupId=2, updatedBy=15
+[2024-12-25 00:51:21] INFO: ::1 - - [24/Dec/2024:17:51:21 +0000] "PUT /api/groups/2 HTTP/1.1" 200 129 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 00:53:15] INFO: User authenticated: user_id=15
+[2024-12-25 00:53:15] INFO: Group created successfully: groupId=[object Object], createdBy=15
+[2024-12-25 00:53:15] INFO: ::1 - - [24/Dec/2024:17:53:15 +0000] "POST /api/groups HTTP/1.1" 201 103 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 00:53:39] INFO: ::1 - - [24/Dec/2024:17:53:39 +0000] "POST /api/groups/3 HTTP/1.1" 404 152 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 00:53:50] ERROR: Token verification failed: jwt expired
+[2024-12-25 00:53:50] INFO: ::1 - - [24/Dec/2024:17:53:50 +0000] "DELETE /api/groups/3 HTTP/1.1" 401 63 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:16:03] INFO: User logged in: helen@gmail.com
+[2024-12-25 01:16:03] INFO: ::1 - - [24/Dec/2024:18:16:03 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:19:58] INFO: User authenticated: user_id=15
+[2024-12-25 01:19:58] INFO: Category created for user 15: 5
+[2024-12-25 01:19:58] INFO: ::1 - - [24/Dec/2024:18:19:58 +0000] "POST /api/categories HTTP/1.1" 201 79 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:22:48] INFO: User authenticated: user_id=15
+[2024-12-25 01:22:48] ERROR: Error creating category for user 15: Error creating category: duplicate key value violates unique constraint "categories_name_key"
+[2024-12-25 01:22:48] INFO: ::1 - - [24/Dec/2024:18:22:48 +0000] "POST /api/categories HTTP/1.1" 400 109 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:23:04] INFO: User authenticated: user_id=15
+[2024-12-25 01:23:04] ERROR: Error creating category for user 15: Error creating category: duplicate key value violates unique constraint "categories_name_key"
+[2024-12-25 01:23:04] INFO: ::1 - - [24/Dec/2024:18:23:04 +0000] "POST /api/categories HTTP/1.1" 400 109 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:23:21] INFO: Server is running on port 5001
+[2024-12-25 01:23:21] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 01:23:30] INFO: ::1 - - [24/Dec/2024:18:23:30 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 01:23:31] INFO: ::1 - - [24/Dec/2024:18:23:31 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 01:23:31] INFO: ::1 - - [24/Dec/2024:18:23:31 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 01:23:31] INFO: ::1 - - [24/Dec/2024:18:23:31 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 01:23:31] INFO: ::1 - - [24/Dec/2024:18:23:31 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 01:25:32] INFO: User registered: cace@gmail.com
+[2024-12-25 01:25:32] INFO: ::1 - - [24/Dec/2024:18:25:32 +0000] "POST /api/auth/register HTTP/1.1" 201 240 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:26:51] INFO: User logged in: cace@gmail.com
+[2024-12-25 01:26:51] INFO: ::1 - - [24/Dec/2024:18:26:51 +0000] "POST /api/auth/login HTTP/1.1" 200 240 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:27:39] INFO: User authenticated: user_id=17
+[2024-12-25 01:27:39] INFO: Category created for user 17: 8
+[2024-12-25 01:27:39] INFO: ::1 - - [24/Dec/2024:18:27:39 +0000] "POST /api/categories HTTP/1.1" 201 78 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:29:15] INFO: User authenticated: user_id=17
+[2024-12-25 01:29:15] INFO: Task created for user 17: 6
+[2024-12-25 01:29:15] INFO: ::1 - - [24/Dec/2024:18:29:15 +0000] "POST /api/tasks HTTP/1.1" 201 180 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:40:58] WARN: Login failed: Mật khẩu không chính xác cho email cace@gmail.com.
+[2024-12-25 01:40:58] INFO: ::1 - - [24/Dec/2024:18:40:58 +0000] "POST /api/auth/login HTTP/1.1" 400 58 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:41:07] INFO: User logged in: cace@gmail.com
+[2024-12-25 01:41:07] INFO: ::1 - - [24/Dec/2024:18:41:07 +0000] "POST /api/auth/login HTTP/1.1" 200 240 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:42:07] INFO: User authenticated: user_id=17
+[2024-12-25 01:42:07] INFO: Category created for user 17: 9
+[2024-12-25 01:42:07] INFO: ::1 - - [24/Dec/2024:18:42:07 +0000] "POST /api/categories HTTP/1.1" 201 78 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 01:58:03] INFO: User authenticated: user_id=17
+[2024-12-25 01:58:03] WARN: Access denied for user 17 on group 2
+[2024-12-25 01:58:03] INFO: ::1 - - [24/Dec/2024:18:58:03 +0000] "PUT /api/groups/2 HTTP/1.1" 403 27 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:01:26] INFO: User logged in: helen@gmail.com
+[2024-12-25 02:01:26] INFO: ::1 - - [24/Dec/2024:19:01:26 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:02:37] INFO: User authenticated: user_id=15
+[2024-12-25 02:02:37] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 02:02:37] INFO: Group updated successfully: groupId=2, updatedBy=15
+[2024-12-25 02:02:37] INFO: ::1 - - [24/Dec/2024:19:02:37 +0000] "PUT /api/groups/2 HTTP/1.1" 200 123 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:03:37] INFO: User authenticated: user_id=15
+[2024-12-25 02:03:37] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 02:03:37] INFO: Notification created for user 9 about group 2
+[2024-12-25 02:03:37] INFO: Member added successfully: memberId=9, groupId=2, addedBy=15
+[2024-12-25 02:03:37] INFO: ::1 - - [24/Dec/2024:19:03:37 +0000] "POST /api/groups/2/members HTTP/1.1" 200 114 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:04:10] INFO: User authenticated: user_id=15
+[2024-12-25 02:04:10] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 02:04:10] ERROR: Error removing member memberId=9 from groupId=2: Error removing member from group: column "updated_at" of relation "user_groups" does not exist
+[2024-12-25 02:04:10] INFO: ::1 - - [24/Dec/2024:19:04:10 +0000] "DELETE /api/groups/2/members HTTP/1.1" 500 112 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:28:08] INFO: Server is running on port 5001
+[2024-12-25 02:28:08] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 02:28:17] INFO: ::1 - - [24/Dec/2024:19:28:17 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 02:28:17] INFO: ::1 - - [24/Dec/2024:19:28:17 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 02:28:17] INFO: ::1 - - [24/Dec/2024:19:28:17 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 02:28:17] INFO: ::1 - - [24/Dec/2024:19:28:17 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 02:28:18] INFO: ::1 - - [24/Dec/2024:19:28:18 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 02:28:31] INFO: User authenticated: user_id=15
+[2024-12-25 02:28:31] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 02:28:31] INFO: Member removed successfully: memberId=9, groupId=2, removedBy=15
+[2024-12-25 02:28:31] INFO: ::1 - - [24/Dec/2024:19:28:31 +0000] "DELETE /api/groups/2/members HTTP/1.1" 200 102 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:28:57] INFO: User authenticated: user_id=15
+[2024-12-25 02:28:57] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 02:28:57] INFO: Group deleted successfully: groupId=2, deletedBy=15
+[2024-12-25 02:28:57] INFO: ::1 - - [24/Dec/2024:19:28:57 +0000] "DELETE /api/groups/2 HTTP/1.1" 200 70 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:31:38] INFO: User authenticated: user_id=15
+[2024-12-25 02:31:38] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:31:38] ERROR: Failed to create task: Error creating group task: column "title" of relation "group_tasks" does not exist
+[2024-12-25 02:31:38] INFO: ::1 - - [24/Dec/2024:19:31:38 +0000] "POST /api/group-tasks HTTP/1.1" 400 100 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:38:38] INFO: User authenticated: user_id=15
+[2024-12-25 02:38:38] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:38:38] ERROR: Failed to create task: Error creating group task: column "description" of relation "group_tasks" does not exist
+[2024-12-25 02:38:38] INFO: ::1 - - [24/Dec/2024:19:38:38 +0000] "POST /api/group-tasks HTTP/1.1" 400 106 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:40:23] INFO: User authenticated: user_id=15
+[2024-12-25 02:40:23] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:40:23] ERROR: Failed to create task: Error creating group task: column "assigned_to" of relation "group_tasks" does not exist
+[2024-12-25 02:40:23] INFO: ::1 - - [24/Dec/2024:19:40:23 +0000] "POST /api/group-tasks HTTP/1.1" 400 106 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:46:30] INFO: User authenticated: user_id=15
+[2024-12-25 02:46:30] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:46:30] ERROR: Failed to create task: Error creating group task: column "created_by" of relation "group_tasks" does not exist
+[2024-12-25 02:46:30] INFO: ::1 - - [24/Dec/2024:19:46:30 +0000] "POST /api/group-tasks HTTP/1.1" 400 105 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:47:56] INFO: User authenticated: user_id=15
+[2024-12-25 02:47:56] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:47:56] ERROR: Failed to create task: Error creating group task: column "created_by" of relation "group_tasks" does not exist
+[2024-12-25 02:47:56] INFO: ::1 - - [24/Dec/2024:19:47:56 +0000] "POST /api/group-tasks HTTP/1.1" 400 105 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:47:59] INFO: User authenticated: user_id=15
+[2024-12-25 02:47:59] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:47:59] ERROR: Failed to create task: Error creating group task: column "created_by" of relation "group_tasks" does not exist
+[2024-12-25 02:47:59] INFO: ::1 - - [24/Dec/2024:19:47:59 +0000] "POST /api/group-tasks HTTP/1.1" 400 105 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 02:51:17] INFO: User authenticated: user_id=15
+[2024-12-25 02:51:17] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 02:51:17] INFO: Task created successfully by admin 15 in group 3
+[2024-12-25 02:51:17] INFO: ::1 - - [24/Dec/2024:19:51:17 +0000] "POST /api/group-tasks HTTP/1.1" 201 144 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 03:00:31] INFO: Server is running on port 5001
+[2024-12-25 03:00:31] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 03:00:38] INFO: ::1 - - [24/Dec/2024:20:00:38 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 03:00:38] INFO: ::1 - - [24/Dec/2024:20:00:38 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 03:00:38] INFO: ::1 - - [24/Dec/2024:20:00:38 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 03:00:38] INFO: ::1 - - [24/Dec/2024:20:00:38 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 03:00:39] INFO: ::1 - - [24/Dec/2024:20:00:39 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 03:03:02] ERROR: Token verification failed: jwt expired
+[2024-12-25 03:03:02] INFO: ::1 - - [24/Dec/2024:20:03:02 +0000] "POST /api/group-tasks HTTP/1.1" 401 63 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 03:05:15] INFO: ::1 - - [24/Dec/2024:20:05:15 +0000] "POST /api/auth/logi HTTP/1.1" 404 153 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 03:05:30] INFO: User logged in: helen@gmail.com
+[2024-12-25 03:05:30] INFO: ::1 - - [24/Dec/2024:20:05:30 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 03:06:52] INFO: User authenticated: user_id=15
+[2024-12-25 03:06:52] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 03:06:52] ERROR: Failed to create task: Error creating group task: column "create_by" does not exist
+[2024-12-25 03:06:52] INFO: ::1 - - [24/Dec/2024:20:06:52 +0000] "POST /api/group-tasks HTTP/1.1" 400 76 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:25:20] INFO: Server is running on port 5001
+[2024-12-25 09:25:20] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 09:25:26] INFO: ::1 - - [25/Dec/2024:02:25:26 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 09:25:26] INFO: ::1 - - [25/Dec/2024:02:25:26 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 09:25:26] INFO: ::1 - - [25/Dec/2024:02:25:26 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 09:25:26] INFO: ::1 - - [25/Dec/2024:02:25:26 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 09:25:27] INFO: ::1 - - [25/Dec/2024:02:25:27 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 09:26:23] INFO: User logged in: helen@gmail.com
+[2024-12-25 09:26:23] INFO: ::1 - - [25/Dec/2024:02:26:23 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:27:43] INFO: User authenticated: user_id=15
+[2024-12-25 09:27:43] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 09:27:43] INFO: Task created successfully by admin 15 in group 2
+[2024-12-25 09:27:43] INFO: ::1 - - [25/Dec/2024:02:27:43 +0000] "POST /api/group-tasks HTTP/1.1" 201 139 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:55:21] INFO: User authenticated: user_id=15
+[2024-12-25 09:55:21] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 09:55:21] ERROR: Error adding member memberId=9 to groupId=2: Error adding member to group: duplicate key value violates unique constraint "user_groups_user_id_group_id_key"
+[2024-12-25 09:55:21] INFO: ::1 - - [25/Dec/2024:02:55:21 +0000] "POST /api/groups/2/members HTTP/1.1" 500 127 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:56:04] INFO: User authenticated: user_id=15
+[2024-12-25 09:56:04] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 09:56:04] INFO: Notification created for user 17 about group 2
+[2024-12-25 09:56:04] INFO: Member added successfully: memberId=17, groupId=2, addedBy=15
+[2024-12-25 09:56:04] INFO: ::1 - - [25/Dec/2024:02:56:04 +0000] "POST /api/groups/2/members HTTP/1.1" 200 115 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:57:01] INFO: User authenticated: user_id=15
+[2024-12-25 09:57:01] INFO: User 15 authorized with role admin for group 2
+[2024-12-25 09:57:01] INFO: Task created successfully by admin 15 in group 2
+[2024-12-25 09:57:01] INFO: ::1 - - [25/Dec/2024:02:57:01 +0000] "POST /api/group-tasks HTTP/1.1" 201 129 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:57:46] INFO: User authenticated: user_id=15
+[2024-12-25 09:57:46] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 09:57:46] INFO: ::1 - - [25/Dec/2024:02:57:46 +0000] "GET /api/group-tasks HTTP/1.1" 400 76 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 09:59:07] INFO: User authenticated: user_id=15
+[2024-12-25 09:59:07] INFO: ::1 - - [25/Dec/2024:02:59:07 +0000] "PUT /api/group-tasks/3 HTTP/1.1" 400 33 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 14:30:23] INFO: Server is running on port 5001
+[2024-12-25 14:30:23] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 14:30:31] INFO: ::1 - - [25/Dec/2024:07:30:31 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 14:30:31] INFO: ::1 - - [25/Dec/2024:07:30:31 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 14:30:31] INFO: ::1 - - [25/Dec/2024:07:30:31 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 14:30:31] INFO: ::1 - - [25/Dec/2024:07:30:31 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 14:30:31] INFO: ::1 - - [25/Dec/2024:07:30:31 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 14:34:20] INFO: User logged in: helen@gmail.com
+[2024-12-25 14:34:20] INFO: ::1 - - [25/Dec/2024:07:34:20 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 14:34:35] INFO: User logged in: helen@gmail.com
+[2024-12-25 14:34:35] INFO: ::1 - - [25/Dec/2024:07:34:35 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 14:34:44] INFO: User logged in: helen@gmail.com
+[2024-12-25 14:34:44] INFO: ::1 - - [25/Dec/2024:07:34:44 +0000] "POST /api/auth/login HTTP/1.1" 200 245 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 14:35:11] INFO: User authenticated: user_id=15
+[2024-12-25 14:35:11] INFO: ::1 - - [25/Dec/2024:07:35:11 +0000] "GET /api/auth/profile HTTP/1.1" 200 129 "-" "PostmanRuntime/7.43.0"

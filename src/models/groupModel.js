@@ -153,7 +153,7 @@ const removeMemberFromGroup = async (groupId, adminId, memberId) => {
 
         // Xóa thành viên (xóa mềm)
         const result = await pool.query(
-            `UPDATE user_groups SET is_deleted = true, updated_at = CURRENT_TIMESTAMP 
+            `UPDATE user_groups SET is_deleted = true
              WHERE user_id = $1 AND group_id = $2 
              RETURNING user_group_id, user_id, group_id`,
             [memberId, groupId]

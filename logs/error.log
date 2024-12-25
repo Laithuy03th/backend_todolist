@@ -21,3 +21,25 @@
 [2024-12-24 18:54:52] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
 [2024-12-24 18:55:17] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
 [2024-12-24 21:37:21] ERROR: Error updating task for user 16: Error updating task: could not determine data type of parameter $4
+[2024-12-24 22:12:39] ERROR: Error updating task for user 16: Error updating task: could not determine data type of parameter $4
+[2024-12-24 22:12:52] ERROR: Error updating task for user 16: Error updating task: could not determine data type of parameter $4
+[2024-12-24 22:16:30] ERROR: Error updating task for user 16: Error updating task: could not determine data type of parameter $4
+[2024-12-24 22:16:39] ERROR: Error updating task for user 16: Error updating task: could not determine data type of parameter $4
+[2024-12-24 22:29:28] ERROR: Token verification failed: jwt expired
+[2024-12-24 23:07:00] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-24 23:54:57] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 00:40:03] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
+[2024-12-25 00:53:50] ERROR: Token verification failed: jwt expired
+[2024-12-25 01:22:48] ERROR: Error creating category for user 15: Error creating category: duplicate key value violates unique constraint "categories_name_key"
+[2024-12-25 01:23:04] ERROR: Error creating category for user 15: Error creating category: duplicate key value violates unique constraint "categories_name_key"
+[2024-12-25 02:04:10] ERROR: Error removing member memberId=9 from groupId=2: Error removing member from group: column "updated_at" of relation "user_groups" does not exist
+[2024-12-25 02:31:38] ERROR: Failed to create task: Error creating group task: column "title" of relation "group_tasks" does not exist
+[2024-12-25 02:38:38] ERROR: Failed to create task: Error creating group task: column "description" of relation "group_tasks" does not exist
+[2024-12-25 02:40:23] ERROR: Failed to create task: Error creating group task: column "assigned_to" of relation "group_tasks" does not exist
+[2024-12-25 02:46:30] ERROR: Failed to create task: Error creating group task: column "created_by" of relation "group_tasks" does not exist
+[2024-12-25 02:47:56] ERROR: Failed to create task: Error creating group task: column "created_by" of relation "group_tasks" does not exist
+[2024-12-25 02:47:59] ERROR: Failed to create task: Error creating group task: column "created_by" of relation "group_tasks" does not exist
+[2024-12-25 03:03:02] ERROR: Token verification failed: jwt expired
+[2024-12-25 03:06:52] ERROR: Failed to create task: Error creating group task: column "create_by" does not exist
+[2024-12-25 09:55:21] ERROR: Error adding member memberId=9 to groupId=2: Error adding member to group: duplicate key value violates unique constraint "user_groups_user_id_group_id_key"
+[2024-12-25 09:57:46] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group

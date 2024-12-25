@@ -24,7 +24,7 @@ const createGroupTask = async (groupId, adminId, title, description, dueDate, as
         // Thêm nhiệm vụ nhóm
         const taskResult = await pool.query(
             `INSERT INTO group_tasks (group_id, title, description, due_date, assigned_to, created_by, created_at, status) 
-             VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, false) RETURNING task_id, title, description, due_date, assigned_to, status`,
+             VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, false) RETURNING title, description, due_date, assigned_to, created_by, status`,
             [groupId, title, description, dueDate, assignedTo, adminId]
         );
 

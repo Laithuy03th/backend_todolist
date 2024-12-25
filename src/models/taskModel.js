@@ -45,7 +45,6 @@ const getTasksByUser = async (userId, status = null) => {
     }
 };
 
-// Cập nhật thông tin nhiệm vụ
 const updateTask = async (taskId, userId, fields) => {
     try {
         // Kiểm tra xem nhiệm vụ có thuộc về người dùng không
@@ -54,7 +53,12 @@ const updateTask = async (taskId, userId, fields) => {
             throw new Error('Người dùng không có quyền chỉnh sửa nhiệm vụ này');
         }
 
-        // Kiểm tra tính hợp lệ của category_id nếu được cập nhật
+        // Chuẩn hóa giá trị `status` nếu tồn tại
+        if (fields.status !== undefined) {
+            fields.status = fields.status === true || fields.status === 'true';
+        }
+
+        // Kiểm tra tính hợp lệ của `category_id` nếu được cập nhật
         if (fields.category_id) {
             const categoryValid = await isValidCategory(fields.category_id, userId);
             if (!categoryValid) {
@@ -62,41 +66,30 @@ const updateTask = async (taskId, userId, fields) => {
             }
         }
 
-        // Kiểm tra và xử lý trường hợp cập nhật status
-        if (fields.status !== undefined) {
-            fields.status = Boolean(fields.status);
-          const currentTask = await pool.query(
-              `SELECT status FROM tasks WHERE task_id = $1 AND is_deleted = false`,
-              [taskId]
-          );
-
-          if (currentTask.rows[0].status === true && fields.status === false) {
-              throw new Error('Không thể chuyển trạng thái từ hoàn thành về chưa hoàn thành');
-          }
-      }
-
+        // Xây dựng câu lệnh SQL động
         const allowedFields = ['title', 'description', 'due_date', 'status', 'category_id'];
         const updates = Object.keys(fields)
-    .filter((key) => allowedFields.includes(key))
-    .map((key, index) => {
-        if (key === 'due_date' && typeof fields[key] === 'string') {
-            fields[key] = new Date(fields[key]).toISOString();
-        }
-        return `${key} = $${index + 1}`;
-    })
-    .join(', ');
-
+            .filter((key) => allowedFields.includes(key))
+            .map((key, index) => `${key} = $${index + 1}`)
+            .join(', ');
 
         if (!updates) {
-            throw new Error('No valid fields to update');
+            throw new Error('Không có trường hợp lệ để cập nhật');
         }
 
         const values = Object.values(fields);
+
+        
+        // Thêm console.log để kiểm tra giá trị
+        console.log('Fields:', fields); // Hiển thị các field đang cập nhật
+        console.log('Values:', values); // Hiển thị giá trị truyền vào câu lệnh SQL
+
         const result = await pool.query(
-            `UPDATE tasks SET ${updates}, updated_at = CURRENT_TIMESTAMP 
-             WHERE task_id = $${values.length + 1} AND is_deleted = false 
+            `UPDATE tasks 
+             SET ${updates}, updated_at = CURRENT_TIMESTAMP 
+             WHERE task_id = $${values.length + 1} AND user_id = $${values.length + 2} AND is_deleted = false 
              RETURNING task_id, title, description, due_date, status, category_id, updated_at`,
-            [...values, taskId]
+            [...values, taskId, userId]
         );
 
         return result.rows[0];
@@ -104,6 +97,8 @@ const updateTask = async (taskId, userId, fields) => {
         throw new Error(`Error updating task: ${error.message}`);
     }
 };
+
+
 
 // Xóa nhiệm vụ (xóa mềm)
 const deleteTask = async (taskId, userId) => {
