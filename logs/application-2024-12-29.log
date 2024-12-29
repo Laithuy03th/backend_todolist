@@ -1,0 +1,9 @@
+[2024-12-29 08:44:53] INFO: Server is running on port 5001
+[2024-12-29 08:44:53] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-29 08:45:06] INFO: ::1 - - [29/Dec/2024:01:45:06 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-29 08:45:06] INFO: ::1 - - [29/Dec/2024:01:45:06 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-29 08:45:06] INFO: ::1 - - [29/Dec/2024:01:45:06 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-29 08:45:06] INFO: ::1 - - [29/Dec/2024:01:45:06 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-29 08:45:06] INFO: ::1 - - [29/Dec/2024:01:45:06 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-29 20:14:07] INFO: Server is running on port 5001
+[2024-12-29 20:14:07] INFO: Swagger docs available at http://localhost:5001/api-docs

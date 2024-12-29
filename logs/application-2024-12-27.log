@@ -1,0 +1,14 @@
+[2024-12-27 00:01:58] INFO: User authenticated: user_id=15
+[2024-12-27 00:01:58] INFO: User 15 authorized with role admin for group 6
+[2024-12-27 00:01:58] INFO: Notification created for user 17 about group 6
+[2024-12-27 00:01:58] INFO: Member added successfully: memberId=17, groupId=6, addedBy=15
+[2024-12-27 00:01:58] INFO: ::1 - - [26/Dec/2024:17:01:58 +0000] "POST /api/groups/6/members HTTP/1.1" 200 116 "-" "PostmanRuntime/7.43.0"
+[2024-12-27 00:04:05] INFO: User authenticated: user_id=15
+[2024-12-27 00:04:05] INFO: User 15 authorized with role admin for group 6
+[2024-12-27 00:04:05] INFO: Task created successfully by admin 15 in group 6
+[2024-12-27 00:04:05] INFO: ::1 - - [26/Dec/2024:17:04:05 +0000] "POST /api/group-tasks HTTP/1.1" 201 142 "-" "PostmanRuntime/7.43.0"
+[2024-12-27 00:06:54] INFO: User authenticated: user_id=15
+[2024-12-27 00:06:54] INFO: User 15 authorized with role admin for group 6
+[2024-12-27 00:06:54] INFO: Notification created for user 16 about group 6
+[2024-12-27 00:06:54] INFO: Member added successfully: memberId=16, groupId=6, addedBy=15
+[2024-12-27 00:06:54] INFO: ::1 - - [26/Dec/2024:17:06:54 +0000] "POST /api/groups/6/members HTTP/1.1" 200 116 "-" "PostmanRuntime/7.43.0"

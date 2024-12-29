@@ -280,3 +280,61 @@
 [2024-12-25 22:53:11] INFO: User authenticated: user_id=15
 [2024-12-25 22:53:11] INFO: Task deleted for user 15: 4
 [2024-12-25 22:53:11] INFO: ::1 - - [25/Dec/2024:15:53:11 +0000] "DELETE /api/tasks/4 HTTP/1.1" 200 189 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:05:39] INFO: Server is running on port 5001
+[2024-12-25 23:05:39] INFO: Swagger docs available at http://localhost:5001/api-docs
+[2024-12-25 23:05:46] INFO: ::1 - - [25/Dec/2024:16:05:46 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 23:05:46] INFO: ::1 - - [25/Dec/2024:16:05:46 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 23:05:46] INFO: ::1 - - [25/Dec/2024:16:05:46 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 23:05:46] INFO: ::1 - - [25/Dec/2024:16:05:46 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 23:05:46] INFO: ::1 - - [25/Dec/2024:16:05:46 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[2024-12-25 23:06:02] INFO: User authenticated: user_id=15
+[2024-12-25 23:06:02] INFO: Group created successfully: groupId=[object Object], createdBy=15
+[2024-12-25 23:06:02] INFO: ::1 - - [25/Dec/2024:16:06:02 +0000] "POST /api/groups HTTP/1.1" 201 103 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:25:17] INFO: User authenticated: user_id=15
+[2024-12-25 23:25:17] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:25:17] INFO: Group updated successfully: groupId=4, updatedBy=15
+[2024-12-25 23:25:17] INFO: ::1 - - [25/Dec/2024:16:25:17 +0000] "PUT /api/groups/4 HTTP/1.1" 200 122 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:26:51] INFO: User authenticated: user_id=15
+[2024-12-25 23:26:51] INFO: User 15 authorized with role admin for group 3
+[2024-12-25 23:26:51] INFO: Group deleted successfully: groupId=3, deletedBy=15
+[2024-12-25 23:26:51] INFO: ::1 - - [25/Dec/2024:16:26:51 +0000] "DELETE /api/groups/3 HTTP/1.1" 200 70 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:29:44] INFO: User authenticated: user_id=15
+[2024-12-25 23:29:44] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:29:44] INFO: Notification created for user 16 about group 4
+[2024-12-25 23:29:44] INFO: Member added successfully: memberId=16, groupId=4, addedBy=15
+[2024-12-25 23:29:44] INFO: ::1 - - [25/Dec/2024:16:29:44 +0000] "POST /api/groups/4/members HTTP/1.1" 200 115 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:29:51] INFO: User authenticated: user_id=15
+[2024-12-25 23:29:51] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:29:51] INFO: Notification created for user 17 about group 4
+[2024-12-25 23:29:51] INFO: Member added successfully: memberId=17, groupId=4, addedBy=15
+[2024-12-25 23:29:51] INFO: ::1 - - [25/Dec/2024:16:29:51 +0000] "POST /api/groups/4/members HTTP/1.1" 200 116 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:30:27] INFO: User authenticated: user_id=15
+[2024-12-25 23:30:27] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:30:27] INFO: Member removed successfully: memberId=17, groupId=4, removedBy=15
+[2024-12-25 23:30:27] INFO: ::1 - - [25/Dec/2024:16:30:27 +0000] "DELETE /api/groups/4/members HTTP/1.1" 200 104 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:32:26] INFO: User authenticated: user_id=15
+[2024-12-25 23:32:26] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:32:26] INFO: Task created successfully by admin 15 in group 4
+[2024-12-25 23:32:26] INFO: ::1 - - [25/Dec/2024:16:32:26 +0000] "POST /api/group-tasks HTTP/1.1" 201 136 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:34:15] INFO: User authenticated: user_id=15
+[2024-12-25 23:34:15] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:34:16] INFO: Notification created for user 1 about group 4
+[2024-12-25 23:34:16] INFO: Member added successfully: memberId=1, groupId=4, addedBy=15
+[2024-12-25 23:34:16] INFO: ::1 - - [25/Dec/2024:16:34:16 +0000] "POST /api/groups/4/members HTTP/1.1" 200 115 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:34:22] INFO: User authenticated: user_id=15
+[2024-12-25 23:34:22] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:34:22] INFO: Notification created for user 2 about group 4
+[2024-12-25 23:34:22] INFO: Member added successfully: memberId=2, groupId=4, addedBy=15
+[2024-12-25 23:34:22] INFO: ::1 - - [25/Dec/2024:16:34:22 +0000] "POST /api/groups/4/members HTTP/1.1" 200 115 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:45:52] INFO: User authenticated: user_id=15
+[2024-12-25 23:45:52] INFO: User 15 authorized with role admin for group 4
+[2024-12-25 23:45:52] INFO: Task created successfully by admin 15 in group 4
+[2024-12-25 23:45:52] INFO: ::1 - - [25/Dec/2024:16:45:52 +0000] "POST /api/group-tasks HTTP/1.1" 201 146 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:46:14] INFO: User authenticated: user_id=15
+[2024-12-25 23:46:14] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 23:46:14] INFO: ::1 - - [25/Dec/2024:16:46:14 +0000] "GET /api/group-tasks HTTP/1.1" 400 76 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:48:45] INFO: User logged in: anna@gmail.com
+[2024-12-25 23:48:45] INFO: ::1 - - [25/Dec/2024:16:48:45 +0000] "POST /api/auth/login HTTP/1.1" 200 240 "-" "PostmanRuntime/7.43.0"
+[2024-12-25 23:49:34] INFO: User authenticated: user_id=16
+[2024-12-25 23:49:34] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 23:49:34] INFO: ::1 - - [25/Dec/2024:16:49:34 +0000] "GET /api/group-tasks HTTP/1.1" 400 76 "-" "PostmanRuntime/7.43.0"

@@ -52,3 +52,8 @@
 [2024-12-25 21:05:02] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $4
 [2024-12-25 21:27:17] ERROR: Error updating task for user 15: Error updating task: could not determine data type of parameter $3
 [2024-12-25 22:47:34] ERROR: Token verification failed: jwt expired
+[2024-12-25 23:46:14] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-25 23:49:34] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-26 01:07:11] ERROR: Token verification failed: jwt expired
+[2024-12-26 01:08:48] ERROR: Failed to fetch tasks for group undefined: Error fetching group tasks: You are not a member of this group
+[2024-12-26 22:26:29] ERROR: Controller Error: logger is not defined

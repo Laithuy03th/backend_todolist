@@ -106,36 +106,72 @@ const deleteGroupTask = async (taskId, adminId, groupId) => {
         throw new Error(`Error deleting group task: ${error.message}`);
     }
 };
-
-// Lấy danh sách nhiệm vụ của nhóm
-const getGroupTasks = async (groupId, userId, assignedOnly = false) => {
+const getAdminTasks = async (groupId, adminId, memberId = null) => {
     try {
-        // Kiểm tra người dùng là thành viên nhóm
-        const memberCheck = await pool.query(
-            `SELECT user_id FROM user_groups WHERE user_id = $1 AND group_id = $2`,
-            [userId, groupId]
+        // Kiểm tra quyền admin
+        const roleCheck = await pool.query(
+            `SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND role = 'admin' AND is_deleted = false`,
+            [adminId, groupId]
         );
-        if (memberCheck.rowCount === 0) {
-            throw new Error('You are not a member of this group');
+
+        if (roleCheck.rowCount === 0) {
+            throw new Error('You do not have permission to view tasks in this group');
         }
 
         let query = `
             SELECT task_id, title, description, due_date, assigned_to, created_by, created_at, status 
-            FROM group_tasks WHERE group_id = $1
+            FROM group_tasks 
+            WHERE group_id = $1 AND is_deleted = false
         `;
         const values = [groupId];
 
-        if (assignedOnly) {
+        if (memberId) {
             query += ` AND assigned_to = $2`;
-            values.push(userId);
+            values.push(memberId);
         }
 
         const result = await pool.query(query, values);
         return result.rows;
     } catch (error) {
-        throw new Error(`Error fetching group tasks: ${error.message}`);
+        throw new Error(`Error fetching tasks for admin: ${error.message}`);
     }
 };
+
+
+// Lấy danh sách nhiệm vụ dành cho member
+const getMemberTasks = async (groupId, memberId) => {
+    try {
+        logger.info(`Model: Fetching tasks for groupId = ${groupId}, memberId = ${memberId}`);
+
+        // Kiểm tra user là thành viên của nhóm
+        const roleCheck = await pool.query(
+            `SELECT role FROM user_groups WHERE user_id = $1 AND group_id = $2 AND is_deleted = false`,
+            [memberId, groupId]
+        );
+
+        logger.info(`Model: roleCheck.rowCount = ${roleCheck.rowCount}`);
+
+        if (roleCheck.rowCount === 0) {
+            throw new Error('You are not a member of this group');
+        }
+
+        // Lấy danh sách nhiệm vụ được giao cho memberId
+        const tasksQuery = await pool.query(
+            `SELECT task_id, title, description, due_date, assigned_to, created_by, created_at, status 
+             FROM group_tasks 
+             WHERE group_id = $1 AND assigned_to = $2 AND is_deleted = false`,
+            [groupId, memberId]
+        );
+
+        logger.info(`Model: tasksQuery.rows = ${JSON.stringify(tasksQuery.rows)}`);
+        return tasksQuery.rows;
+    } catch (error) {
+        logger.error(`Model Error: ${error.message}`);
+        throw new Error(`Error fetching tasks for member: ${error.message}`);
+    }
+};
+
+
 
 // Cập nhật trạng thái nhiệm vụ
 const updateTaskStatus = async (taskId, userId, status) => {
@@ -170,6 +206,7 @@ module.exports = {
     createGroupTask,
     updateGroupTask,
     deleteGroupTask,
-    getGroupTasks,
+    getAdminTasks,
+    getMemberTasks,
     updateTaskStatus
 };

@@ -4,7 +4,8 @@ const {
   createGroupTaskController,
   updateGroupTaskController,
   deleteGroupTaskController,
-  getGroupTasksController,
+  getAdminTasksController,
+  getMemberTasksController,
   updateTaskStatusController
 } = require('../controllers/groupTaskController');
 const authenticate = require('../middleware/authMiddleware');
@@ -158,34 +159,88 @@ router.put(
  *         description: Bad request
  */
 router.delete('/:group_task_id', authenticate, authorize('admin'), deleteGroupTaskController);
-
 /**
  * @swagger
- * /api/group-tasks:
+ * /api/group-tasks/{groupId}/admin:
  *   get:
- *     summary: Get all group tasks for a specific group
+ *     summary: Get all tasks for admin in a specific group
  *     tags: [Group Tasks]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: groupId
  *         schema:
  *           type: integer
  *         required: true
  *         description: ID of the group
  *       - in: query
- *         name: assignedOnly
+ *         name: memberId
  *         schema:
- *           type: boolean
- *         description: Fetch tasks assigned only to the current user
+ *           type: integer
+ *         description: Filter tasks by assigned member ID
  *     responses:
  *       200:
- *         description: List of group tasks
+ *         description: List of tasks for admin
  *       400:
  *         description: Bad request
  */
-router.get('/', authenticate, getGroupTasksController);
+router.get(
+  '/:groupId/admin',
+  authenticate,
+  [check('groupId', 'Group ID is required').isInt()],
+  (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+          logger.warn(`Validation error: ${JSON.stringify(errors.array())}`);
+          return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+  },
+  getAdminTasksController
+);
+/**
+ * @swagger
+ * /api/group-tasks/{groupId}/member:
+ *   get:
+ *     summary: Get tasks assigned to a member in a specific group
+ *     tags: [Group Tasks]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the group
+ *     responses:
+ *       200:
+ *         description: List of tasks assigned to the member
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: No tasks found for this member
+ */
+router.get(
+  '/:groupId/member',
+  authenticate, // Middleware xác thực
+  [check('groupId', 'Group ID is required').isInt()],
+  (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+          logger.warn(`Validation error: ${JSON.stringify(errors.array())}`);
+          return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+  },
+  getMemberTasksController
+);
+
 
 /**
  * @swagger
